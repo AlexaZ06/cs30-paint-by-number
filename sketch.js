@@ -16,11 +16,59 @@ let catColour;
 let blockNumber;
 let colour;
 
-// class Grid {
-//   constructor (){
-//     this
-//   }
-// }
+class Grid {
+  constructor (){
+    this.GRID_SIZE = 40;
+    this.cellSize;
+    this.image;
+    this.imageColour;
+    this.blockNumber;
+    this.colour;
+  }
+
+  displayGrid() {
+    for (let y = 0; y < GRID_SIZE; y++) {
+      for (let x = 0; x < GRID_SIZE; x++) {
+        if (this.GRID_SIZE >= 40) {
+          //block colour
+          fill("lightblue");
+          rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+  
+          if (this.blockNumber[y][x] < 10) {
+            //fill in grid with numbers
+            fill("black");
+            textAlign(CENTER, CENTER);
+            text(this.blockNumber[y][x], x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+          else {
+            //colour/fill in cells
+            if (blockNumber[y][x] === 10) {
+              fill("white");
+            }
+            else if (this.blockNumber[y][x] === 12) {
+              fill("lightgrey");
+            }
+            else if (this.blockNumber[y][x] === 22) {
+              fill("grey");
+            }
+            else if (this.blockNumber[y][x] === 33) {
+              fill("pink");
+            }
+            else if (this.blockNumber[y][x] === 44) {
+              fill("black");
+            }
+            rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+        }
+  
+        else {
+          rect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+  }
+
+}
 
 //load image to colour
 function preload() {
@@ -50,7 +98,7 @@ function setup() {
 }
 
 function draw() {
-  displayGrid();
+  // displayGrid();
 }
 
 //change colour of fill base on key
@@ -117,49 +165,6 @@ function toggleCell(x, y) {
       }
       else if (colour === 4 && blockNumber[y][x] === 44) {
         blockNumber[y][x] -= 40;
-      }
-    }
-  }
-}
-
-//show image in numbers
-function displayGrid() {
-  for (let y = 0; y < GRID_SIZE; y++) {
-    for (let x = 0; x < GRID_SIZE; x++) {
-      if (GRID_SIZE >= 40) {
-        //block colour
-        fill("lightblue");
-        rect(x * cellSize, y * cellSize, cellSize, cellSize);
-
-        if (blockNumber[y][x] < 10) {
-          //fill in grid with numbers
-          fill("black");
-          textAlign(CENTER, CENTER);
-          text(blockNumber[y][x], x * cellSize, y * cellSize, cellSize, cellSize);
-        }
-        else {
-          //colour/fill in cells
-          if (blockNumber[y][x] === 10) {
-            fill("white");
-          }
-          else if (blockNumber[y][x] === 12) {
-            fill("lightgrey");
-          }
-          else if (blockNumber[y][x] === 22) {
-            fill("grey");
-          }
-          else if (blockNumber[y][x] === 33) {
-            fill("pink");
-          }
-          else if (blockNumber[y][x] === 44) {
-            fill("black");
-          }
-          rect(x * cellSize, y * cellSize, cellSize, cellSize);
-        }
-      }
-
-      else {
-        rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
     }
   }
