@@ -4,7 +4,7 @@ My project will be creating a paint/colour by number with images of my choice an
 
 ## Need to Have List
 - Start screen
-- Multiple images (at leeast 8)
+- Multiple images (at least 8)
 - Screen with images to choose to colour
 - End screen
 - Image pixalated in grid

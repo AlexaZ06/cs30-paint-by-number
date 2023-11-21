@@ -16,6 +16,12 @@ let catColour;
 let blockNumber;
 let colour;
 
+// class Grid {
+//   constructor (){
+//     this
+//   }
+// }
+
 //load image to colour
 function preload() {
   cat = loadImage("cat.png");
