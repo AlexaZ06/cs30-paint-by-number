@@ -13,9 +13,9 @@ My project will be creating a paint/colour by number with images of my choice an
 - Center canvas in screen
 - Assign numbers to colours (should account for any colour)
 - Flood fill to make colouring faster
+- Music that coresponds to the image or you can choose a song to play
 
 ## Nice to have List 
-- Music that coresponds to the image or you can choose a song to play
 - Traslucent colour over block of wrong colour if you click on it
 - Image pixelator
 - Place to upload files and process users image of choice
