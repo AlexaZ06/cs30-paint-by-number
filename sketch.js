@@ -200,9 +200,9 @@ function setup() {
   }
 
   if (grid.GRID_SIZE >= 40) {
-    cat.resize(grid.GRID_SIZE, grid.GRID_SIZE);
-    grid.catColour = grid.getCatColors(grid.GRID_SIZE, grid.GRID_SIZE);
-    grid.blockNumber = grid.number(grid.GRID_SIZE, grid.GRID_SIZE);
+    grid.image.resize(grid.GRID_SIZE, grid.GRID_SIZE);
+    grid.catColour = grid.getColors(grid.GRID_SIZE, grid.GRID_SIZE);
+    grid.blockNumber = grid.numberImage(grid.GRID_SIZE, grid.GRID_SIZE);
   }
   else {
     grid = grid.generateEmptyGrid(grid.GRID_SIZE, grid.GRID_SIZE);
@@ -213,6 +213,8 @@ function setup() {
 
 function draw() {
   for (let chosenImage of theImage){
+    chosenImage.imageColour = chosenImage.getColors(chosenImage.GRID_SIZE, chosenImage.GRID_SIZE);
+    chosenImage.blockNumber = chosenImage.numberImage(chosenImage.GRID_SIZE, chosenImage.GRID_SIZE);
     chosenImage.displayGrid();
   }
 }
