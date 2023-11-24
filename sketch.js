@@ -7,22 +7,17 @@
 
 
 //code from grid array game as base 
-//set variables and constants
-// let grid;
-// const GRID_SIZE = 40;
-// let cellSize;
-let theImage = [];
+//set variables
+let catImage;
 let cat;
-// let catColour;
-// let blockNumber;
-// let colour;
 
-class Grid {
-  constructor (someimage){
+class Gridcat {
+  constructor (catImg){
+    this.grid;
     this.GRID_SIZE = 40;
     this.cellSize;
-    this.image = someimage;
-    this.imageColour;
+    this.cat = catImg;
+    this.catColour;
     this.blockNumber;
     this.colour;
   }
@@ -45,7 +40,7 @@ class Grid {
     for (let y = 0; y < rows; y++) {
       colours.push([]);
       for (let x = 0; x < cols; x++) {
-        colours[y].push(this.image.get(x, y));
+        colours[y].push(this.cat.get(x, y));
       }
     }
     return colours;
@@ -59,39 +54,39 @@ class Grid {
       for (let x = 0; x < cols; x++) {
   
         //white
-        if (this.imageColour[y][x][0] >= 210 && this.imageColour[y][x][1] >= 210 && this.imageColour[y][x][2] >= 210
-          || this.imageColour[y][x][3] <= 40) {
-          this.blocknum[y].push(0);
+        if (this.catColour[y][x][0] >= 210 && this.catColour[y][x][1] >= 210 && this.catColour[y][x][2] >= 210
+          || this.catColour[y][x][3] <= 40) {
+          blocknum[y].push(0);
         }
   
         //light grey
-        else if (this.imageColour[y][x][0] < 210 && this.imageColour[y][x][0] >= 140 &&
-          this.imageColour[y][x][1] < 210 && this.imageColour[y][x][1] >= 140 &&
-          this.imageColour[y][x][2] < 210 && this.imageColour[y][x][2] >= 140) {
-          this.blocknum[y].push(1);
+        else if (this.catColour[y][x][0] < 210 && this.catColour[y][x][0] >= 140 &&
+          this.catColour[y][x][1] < 210 && this.catColour[y][x][1] >= 140 &&
+          this.catColour[y][x][2] < 210 && this.catColour[y][x][2] >= 140) {
+          blocknum[y].push(1);
         }
   
         //dark grey
-        else if (this.imageColour[y][x][0] < 140 && this.imageColour[y][x][0] > 40 &&
-          this.imageColour[y][x][1] < 140 && this.imageColour[y][x][1] > 40 &&
-          this.imageColour[y][x][2] < 140 && this.imageColour[y][x][2] > 40) {
-          this.blocknum[y].push(2);
+        else if (this.catColour[y][x][0] < 140 && this.catColour[y][x][0] > 40 &&
+          this.catColour[y][x][1] < 140 && this.catColour[y][x][1] > 40 &&
+          this.catColour[y][x][2] < 140 && this.catColour[y][x][2] > 40) {
+          blocknum[y].push(2);
         }
   
         //pink 
-        else if (this.imageColour[y][x][0] > this.imageColour[y][x][1] && this.imageColour[y][x][0] > this.imageColour[y][x][2]) {
-          this.blocknum[y].push(3);
+        else if (this.catColour[y][x][0] > this.catColour[y][x][1] && this.catColour[y][x][0] > this.catColour[y][x][2]) {
+          blocknum[y].push(3);
         }
   
         //black
-        else if (this.imageColour[y][x][0] <= 40 && this.imageColour[y][x][1] <= 40 && this.imageColour[y][x][2] <= 40
-          || this.imageColour[y][x][3] >= 200) {
-          this.blocknum[y].push(4);
+        else if (this.catColour[y][x][0] <= 40 && this.catColour[y][x][1] <= 40 && this.catColour[y][x][2] <= 40
+          || this.catColour[y][x][3] >= 200) {
+          blocknum[y].push(4);
         }
   
       }
     }
-    return this.blocknum;
+    return blocknum;
   }
   //change cell when clicked
   toggleCell(x, y) {
@@ -188,68 +183,64 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-  let grid = new Grid(cat);
-  grid.generateEmptyGrid(grid.GRID_SIZE, grid.GRID_SIZE);
-
-  if (height > width) {
-    grid.cellSize = width / grid.GRID_SIZE;
-  }
-  else {
-    grid.cellSize = height / grid.GRID_SIZE;
-  }
-
-  if (grid.GRID_SIZE >= 40) {
-    grid.image.resize(grid.GRID_SIZE, grid.GRID_SIZE);
-    grid.catColour = grid.getColors(grid.GRID_SIZE, grid.GRID_SIZE);
-    grid.blockNumber = grid.numberImage(grid.GRID_SIZE, grid.GRID_SIZE);
-  }
-  else {
-    grid = grid.generateEmptyGrid(grid.GRID_SIZE, grid.GRID_SIZE);
-  }
-
-  theImage.push(grid);
+  setupImage();
 }
 
 function draw() {
-  for (let chosenImage of theImage){
-    chosenImage.imageColour = chosenImage.getColors(chosenImage.GRID_SIZE, chosenImage.GRID_SIZE);
-    chosenImage.blockNumber = chosenImage.numberImage(chosenImage.GRID_SIZE, chosenImage.GRID_SIZE);
-    chosenImage.displayGrid();
-  }
+  catImage.displayGrid();
 }
 
 //change colour of fill base on key
 function keyTyped() {
-  for (let chosenImage of theImage) {
-    if (key === "0") {
-      chosenImage.colour = 0;
-    }
-    else if (key === "1") {
-      chosenImage.colour = 1;
-    }
-    else if (key === "2") {
-      chosenImage.colour = 2;
-    }
-    else if (key === "3") {
-      chosenImage.colour = 3;
-    }
-    else if (key === "4") {
-      chosenImage.colour = 4;
-    }
+  if (key === "0") {
+    catImage.colour = 0;
+  }
+  else if (key === "1") {
+    catImage.colour = 1;
+  }
+  else if (key === "2") {
+    catImage.colour = 2;
+  }
+  else if (key === "3") {
+    catImage.colour = 3;
+  }
+  else if (key === "4") {
+    catImage.colour = 4;
   }
 }
 
 //fill in cell with colour when 
 function mousePressed() {
-  for (let chosenImage of theImage){
-    let y = Math.floor(mouseY / chosenImage.cellSize);
-    let x = Math.floor(mouseX / chosenImage.cellSize);
-  
-    chosenImage.toggleCell(x, y);   //current cell
-  }
+
+  let y = Math.floor(mouseY / catImage.cellSize);
+  let x = Math.floor(mouseX / catImage.cellSize);
+
+  catImage.toggleCell(x, y);   //current cell
 }
 
+//set up cat
+function setupImage() {
+  //create cat from class
+  catImage = new Gridcat(cat);
+  catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
 
+  //set grid size
+  if (height > width) {
+    catImage.cellSize = width / catImage.GRID_SIZE;
+  }
+  else {
+    catImage.cellSize = height / catImage.GRID_SIZE;
+  }
+
+  //display cat
+  if (catImage.GRID_SIZE >= 40) {
+    catImage.cat.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    catImage.catColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  }
+  else {
+    catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  }
+}
 
 
