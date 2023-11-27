@@ -6,18 +6,18 @@
 // - describe what you did to take this project "above and beyond"
 
 
-//code from grid array game as base 
 //set variables
 let catImage;
 let cat;
 
+//create parent class using code from grid array game
 class Gridcat {
-  constructor (catImg){
+  constructor (img){
     this.grid;
     this.GRID_SIZE = 40;
     this.cellSize;
-    this.cat = catImg;
-    this.catColour;
+    this.img = img;
+    this.imgColour;
     this.blockNumber;
     this.colour;
   }
@@ -40,7 +40,7 @@ class Gridcat {
     for (let y = 0; y < rows; y++) {
       colours.push([]);
       for (let x = 0; x < cols; x++) {
-        colours[y].push(this.cat.get(x, y));
+        colours[y].push(this.img.get(x, y));
       }
     }
     return colours;
@@ -54,33 +54,33 @@ class Gridcat {
       for (let x = 0; x < cols; x++) {
   
         //white
-        if (this.catColour[y][x][0] >= 210 && this.catColour[y][x][1] >= 210 && this.catColour[y][x][2] >= 210
-          || this.catColour[y][x][3] <= 40) {
+        if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+          || this.imgColour[y][x][3] <= 40) {
           blocknum[y].push(0);
         }
   
         //light grey
-        else if (this.catColour[y][x][0] < 210 && this.catColour[y][x][0] >= 140 &&
-          this.catColour[y][x][1] < 210 && this.catColour[y][x][1] >= 140 &&
-          this.catColour[y][x][2] < 210 && this.catColour[y][x][2] >= 140) {
+        else if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
+          this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
+          this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
           blocknum[y].push(1);
         }
   
         //dark grey
-        else if (this.catColour[y][x][0] < 140 && this.catColour[y][x][0] > 40 &&
-          this.catColour[y][x][1] < 140 && this.catColour[y][x][1] > 40 &&
-          this.catColour[y][x][2] < 140 && this.catColour[y][x][2] > 40) {
+        else if (this.imgColour[y][x][0] < 140 && this.imgColour[y][x][0] > 40 &&
+          this.imgColour[y][x][1] < 140 && this.imgColour[y][x][1] > 40 &&
+          this.imgColour[y][x][2] < 140 && this.imgColour[y][x][2] > 40) {
           blocknum[y].push(2);
         }
   
         //pink 
-        else if (this.catColour[y][x][0] > this.catColour[y][x][1] && this.catColour[y][x][0] > this.catColour[y][x][2]) {
+        else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
           blocknum[y].push(3);
         }
   
         //black
-        else if (this.catColour[y][x][0] <= 40 && this.catColour[y][x][1] <= 40 && this.catColour[y][x][2] <= 40
-          || this.catColour[y][x][3] >= 200) {
+        else if (this.imgColour[y][x][0] <= 40 && this.imgColour[y][x][1] <= 40 && this.imgColour[y][x][2] <= 40
+          || this.imgColour[y][x][3] >= 200) {
           blocknum[y].push(4);
         }
   
@@ -176,6 +176,25 @@ class Gridcat {
 
 }
 
+class Gridwolf extends Gridcat {
+  constructor (img) {
+    super(img);
+  }
+
+  //create grid
+  generateEmptyGrid(cols, rows) {
+    super.generateEmptyGrid(cols, rows);
+  }
+
+  //gathers colours
+  getColors(cols, rows) {
+    super.getColors(cols, rows);
+  }
+
+  //assign numbers to colours
+  numberImage
+}
+
 //load image to colour
 function preload() {
   cat = loadImage("cat.png");
@@ -183,7 +202,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  setupImage();
+  setupImageCat();
 }
 
 function draw() {
@@ -192,6 +211,45 @@ function draw() {
 
 //change colour of fill base on key
 function keyTyped() {
+  catImageKeys();
+}
+
+//fill in cell with colour when 
+function mousePressed() {
+
+  let y = Math.floor(mouseY / catImage.cellSize);
+  let x = Math.floor(mouseX / catImage.cellSize);
+
+  catImage.toggleCell(x, y);   //current cell
+}
+
+//set up cat
+function setupImageCat() {
+  //create cat from class
+  catImage = new Gridcat(cat);
+  catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+
+  //set grid size
+  if (height > width) {
+    catImage.cellSize = width / catImage.GRID_SIZE;
+  }
+  else {
+    catImage.cellSize = height / catImage.GRID_SIZE;
+  }
+
+  //display cat
+  if (catImage.GRID_SIZE >= 40) {
+    catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  }
+  else {
+    catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  }
+}
+
+//keys for cat
+function catImageKeys() {
   if (key === "0") {
     catImage.colour = 0;
   }
@@ -208,39 +266,4 @@ function keyTyped() {
     catImage.colour = 4;
   }
 }
-
-//fill in cell with colour when 
-function mousePressed() {
-
-  let y = Math.floor(mouseY / catImage.cellSize);
-  let x = Math.floor(mouseX / catImage.cellSize);
-
-  catImage.toggleCell(x, y);   //current cell
-}
-
-//set up cat
-function setupImage() {
-  //create cat from class
-  catImage = new Gridcat(cat);
-  catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
-
-  //set grid size
-  if (height > width) {
-    catImage.cellSize = width / catImage.GRID_SIZE;
-  }
-  else {
-    catImage.cellSize = height / catImage.GRID_SIZE;
-  }
-
-  //display cat
-  if (catImage.GRID_SIZE >= 40) {
-    catImage.cat.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.catColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
-  else {
-    catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
-}
-
 
