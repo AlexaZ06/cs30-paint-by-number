@@ -610,9 +610,29 @@ function setupImage() {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
     }
   }
-  // else if (state === "wolfchan"){
-
-  // }
+  else if (state === "wolfchan"){
+    //create cat from class
+    catImage = new Gridcat(cat);
+    catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+   
+    //set grid size
+    if (height > width) {
+      catImage.cellSize = width / catImage.GRID_SIZE;
+    }
+    else {
+      catImage.cellSize = height / catImage.GRID_SIZE;
+    }
+  
+    //display cat
+    if (catImage.GRID_SIZE >= 40) {
+      catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+    else {
+      catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+  }
   // else if (state === "leebit"){
     
   // }
@@ -654,4 +674,3 @@ function catImageKeys() {
     catImage.colour = 4;
   }
 }
-
