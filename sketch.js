@@ -1,5 +1,5 @@
-// Project Title
-// Your Name
+// Paint/Colour by Number
+// Alexandra Zhu
 // Date
 //
 // Extra for Experts:
@@ -8,7 +8,16 @@
 
 //set variables
 let catImage;
+let state = "start";
 let cat;
+let wolfchanImg;
+let leebitImg;
+let dwaekkiImg;
+let jiniretImg;
+let quokkaImg;
+let bbokariImg;
+let puppymImg;
+let foxinyImg;
 
 //create parent class using code from grid array game
 class Gridcat {
@@ -394,14 +403,167 @@ class Grid extends Gridcat {
   }
 }
 
+class WolfChan extends Grid {
+  constructor(img) {
+    super(img);
+  }
+
+  //create grid
+  generateEmptyGrid(cols,rows) {
+    super.generateEmptyGrid(cols, rows);
+  }
+
+  //get colours 
+  getColors(cols, rows) {
+    super.getColors(cols,rows);
+  }
+
+  //assign numbers to colours
+  numberImage(cols, rows) {
+    super.numberImage(cols, rows);
+  }
+
+  //change cell when clicked
+  toggleCell(x,y) {
+    //check that we are within the grid, then toggle
+    if (x >= 0 && x < this.GRID_SIZE && y >= 0 && y < this.GRID_SIZE) {
+      // check for right colour then toggle to colour
+      if (this.blockNumber[y][x] < 10) {
+        if (this.colour === 0 && this.blockNumber[y][x] === 0) {
+          this.blockNumber[y][x] += 10;
+        }
+        else if (this.colour === 1 && this.blockNumber[y][x] === 1) {
+          this.blockNumber[y][x] += 11;
+        }
+        else if (this.colour === 2 && this.blockNumber[y][x] === 2) {
+          this.blockNumber[y][x] += 20;
+        }
+        else if (this.colour === 3 && this.blockNumber[y][x] === 3) {
+          this.blockNumber[y][x] += 30;
+        }
+        else if (this.colour === 4 && this.blockNumber[y][x] === 4) {
+          this.blockNumber[y][x] += 40;
+        }
+        else if (this.colour === 5 && this.blockNumber[y][x] === 5) {
+          this.blockNumber[y][x] += 50;
+        }
+        else if (this.colour === 6 && this.blockNumber[y][x] === 6) {
+          this.blockNumber[y][x] += 60;
+        }
+        else if (this.colour === 7 && this.blockNumber[y][x] === 7) {
+          this.blockNumber[y][x] += 70;
+        }
+        else if (this.colour === 8 && this.blockNumber[y][x] === 8) {
+          this.blockNumber[y][x] += 80;
+        }
+        else if (this.colour === 9 && this.blockNumber[y][x] === 9) {
+          this.blockNumber[y][x] += 90;
+        }
+      }
+      //change block back to original colour
+      else if (this.blockNumber[y][x] >= 10) {
+        if (this.colour === 0 && this.blockNumber[y][x] === 10) {
+          this.blockNumber[y][x] -= 10;
+        }
+        else if (this.colour === 1 && this.blockNumber[y][x] === 12) {
+          this.blockNumber[y][x] -= 11;
+        }
+        else if (this.colour === 2 && this.blockNumber[y][x] === 22) {
+          this.blockNumber[y][x] -= 20;
+        }
+        else if (this.colour === 3 && this.blockNumber[y][x] === 33) {
+          this.blockNumber[y][x] -= 30;
+        }
+        else if (this.colour === 4 && this.blockNumber[y][x] === 44) {
+          this.blockNumber[y][x] -= 40;
+        }
+        else if (this.colour === 5 && this.blockNumber[y][x] === 55) {
+          this.blockNumber[y][x] -= 50;
+        }
+        else if (this.colour === 6 && this.blockNumber[y][x] === 66) {
+          this.blockNumber[y][x] -= 60;
+        }
+        else if (this.colour === 7 && this.blockNumber[y][x] === 77) {
+          this.blockNumber[y][x] -= 70;
+        }
+        else if (this.colour === 8 && this.blockNumber[y][x] === 88) {
+          this.blockNumber[y][x] -= 80;
+        }
+        else if (this.colour === 9 && this.blockNumber[y][x] === 99) {
+          this.blockNumber[y][x] -= 90;
+        }
+      }
+    }
+  }
+
+  //show grid
+  displayGrid() {
+    for (let y = 0; y < this.GRID_SIZE; y++) {
+      for (let x = 0; x < this.GRID_SIZE; x++) {
+        if (this.GRID_SIZE >= 40) {
+          //block colour
+          fill("lightblue");
+          rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+  
+          if (this.blockNumber[y][x] < 10) {
+            //fill in grid with numbers
+            fill("black");
+            textAlign(CENTER, CENTER);
+            text(this.blockNumber[y][x], x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+          else {
+            //colour/fill in cells
+            if (this.blockNumber[y][x] === 10) {
+              fill("white");
+            }
+            else if (this.blockNumber[y][x] === 12) {
+              fill("lightgrey");
+            }
+            else if (this.blockNumber[y][x] === 22) {
+              fill("grey");
+            }
+            else if (this.blockNumber[y][x] === 33) {
+              fill("pink");
+            }
+            else if (this.blockNumber[y][x] === 44) {
+              fill("lightyellow");
+            }
+            else if (this.blockNumber[y][x] === 55) {
+              fill("lightorange");
+            }
+            else if (this.blockNumber[y][x] === 66) {
+              fill("lightgreed");
+            }
+            else if (this.blockNumber[y][x] === 77) {
+              fill("lightblue");
+            }
+            else if (this.blockNumber[y][x] === 88) {
+              fill("lavender");
+            }
+            else if (this.blockNumber[y][x] === 99) {
+              fill("black");
+            }
+            rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+        }
+  
+        else {
+          rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        }
+      }
+    }
+  }
+}
+
 //load image to colour
 function preload() {
   cat = loadImage("cat.png");
+  wolfchanImg = loadImage("wolfchan.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  setupImageCat();
+  setupImage();
 }
 
 function draw() {
@@ -423,28 +585,55 @@ function mousePressed() {
 }
 
 //set up cat
-function setupImageCat() {
-  //create cat from class
-  catImage = new Gridcat(cat);
-  catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+function setupImage() {
+  //display image depending on state
+  if (state === "cat") {
+    //create cat from class
+    catImage = new Gridcat(cat);
+    catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+   
+    //set grid size
+    if (height > width) {
+      catImage.cellSize = width / catImage.GRID_SIZE;
+    }
+    else {
+      catImage.cellSize = height / catImage.GRID_SIZE;
+    }
+  
+    //display cat
+    if (catImage.GRID_SIZE >= 40) {
+      catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+    else {
+      catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+  }
+  // else if (state === "wolfchan"){
 
-  //set grid size
-  if (height > width) {
-    catImage.cellSize = width / catImage.GRID_SIZE;
-  }
-  else {
-    catImage.cellSize = height / catImage.GRID_SIZE;
-  }
-
-  //display cat
-  if (catImage.GRID_SIZE >= 40) {
-    catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
-  else {
-    catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
+  // }
+  // else if (state === "leebit"){
+    
+  // }
+  // else if (state === "dwaekki"){
+    
+  // }
+  // else if (state === "jiniret"){
+    
+  // }
+  // else if (state === "hanquokka"){
+    
+  // }
+  // else if (state === "bbokari"){
+    
+  // }
+  // else if (state === "puppym"){
+    
+  // }
+  // else if (state === "foxiny"){
+    
+  // }
 }
 
 //keys for cat
