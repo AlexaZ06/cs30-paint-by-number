@@ -10,13 +10,21 @@
 let catImage;
 let state = "start";
 let cat;
+let wolfChan;
 let wolfchanImg;
+let leeBit;
 let leebitImg;
+let dwaekki;
 let dwaekkiImg;
+let jiniret;
 let jiniretImg;
+let quokka;
 let quokkaImg;
+let bbokari;
 let bbokariImg;
+let puppym;
 let puppymImg;
+let foxiny;
 let foxinyImg;
 
 //create parent class using code from grid array game
@@ -558,7 +566,7 @@ class WolfChan extends Grid {
 //load image to colour
 function preload() {
   cat = loadImage("cat.png");
-  wolfchanImg = loadImage("wolfchan.png");
+  wolfChan = loadImage("wolfchan.png");
 }
 
 function setup() {
@@ -612,25 +620,25 @@ function setupImage() {
   }
   else if (state === "wolfchan"){
     //create cat from class
-    catImage = new Gridcat(cat);
-    catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    wolfchanImg = new WolfChan(wolfChan);
+    wolfchanImg.grid = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
    
     //set grid size
     if (height > width) {
-      catImage.cellSize = width / catImage.GRID_SIZE;
+      wolfchanImg.cellSize = width / wolfchanImg.GRID_SIZE;
     }
     else {
-      catImage.cellSize = height / catImage.GRID_SIZE;
+      wolfchanImg.cellSize = height / wolfchanImg.GRID_SIZE;
     }
   
     //display cat
-    if (catImage.GRID_SIZE >= 40) {
-      catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
-      catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
-      catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    if (wolfchanImg.GRID_SIZE >= 40) {
+      wolfchanImg.img.resize(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+      wolfchanImg.imgColour = wolfchanImg.getColors(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+      wolfchanImg.blockNumber = wolfchanImg.numberImage(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
     }
     else {
-      catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      wolfchanImg = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
     }
   }
   // else if (state === "leebit"){
