@@ -713,14 +713,19 @@ class Quokka extends Grid {
         }
         
         //light brown
-        else if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
-          this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
-          this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
+        else if (this.imgColour[y][x][0] < 200 && this.imgColour[y][x][0] >= 170 &&
+          this.imgColour[y][x][1] < 170 && this.imgColour[y][x][1] >= 140 &&
+          this.imgColour[y][x][2] < 140 && this.imgColour[y][x][2] >= 120) {
           blocknum[y].push(1);
         }
 
         //Brown
-        
+        else if (this.imgColour[y][x][0] < 170 && this.imgColour[y][x][0] >= 100 &&
+          this.imgColour[y][x][1] < 100 && this.imgColour[y][x][1] >= 60 &&
+          this.imgColour[y][x][2] < 60 && this.imgColour[y][x][2] >= 0) {
+          blocknum[y].push(1);
+        }
+
         //pink
         else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
           blocknum[y].push(2);
@@ -765,7 +770,46 @@ class Bbokari extends Grid {
 
   //assign numbers to colours
   numberImage(cols, rows) {
-    super.numberImage(cols, rows);
+    let blocknum = [];
+    for (let y = 0; y < rows; y++) {
+      blocknum.push([]);
+      for (let x = 0; x < cols; x++) {
+  
+        //White
+        if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+          || this.imgColour[y][x][3] <= 40) {
+          blocknum[y].push(0);
+        }
+        
+        //pastel yellow
+        else if (this.imgColour[y][x][0] < 200 && this.imgColour[y][x][0] >= 170 &&
+          this.imgColour[y][x][1] < 170 && this.imgColour[y][x][1] >= 140 &&
+          this.imgColour[y][x][2] < 160) {
+          blocknum[y].push(1);
+        }
+
+        //yellow
+        else if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 210 &&
+          this.imgColour[y][x][0] > this.imagColour[y][x][2] &&
+          this.imgColour[y][x][1] > this.imgColour[y][x][2] &&
+          this.imgColour[y][x][2] < 160) {
+          blocknum[y].push(1);
+        }
+
+        //pink
+        else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
+          blocknum[y].push(2);
+        }
+
+        //black
+        else if (this.imgColour[y][x][0] <= 40 && this.imgColour[y][x][1] <= 40 && this.imgColour[y][x][2] <= 40
+          || this.imgColour[y][x][3] >= 200) {
+          blocknum[y].push(3);
+        }
+  
+      }
+    }
+    return blocknum;
   }
 
   //change cell when clicked
@@ -796,7 +840,6 @@ class Puppym extends Grid {
 
   //assign numbers to colours
   numberImage(cols, rows) {
-    super.numberImage(cols, rows);
   }
 
   //change cell when clicked
@@ -827,7 +870,6 @@ class Foxiny extends Grid {
 
   //assign numbers to colours
   numberImage(cols, rows) {
-    super.numberImage(cols, rows);
   }
 
   //change cell when clicked
