@@ -5,11 +5,12 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+//line 459 in  wolfchan class throws an error 
 
 //set variables
-let state = "start";
-let catImage;
+let state = "end";
 let cat;
+let catImage;
 let wolfChan;
 let wolfchanImg;
 let leeBit;
@@ -26,6 +27,8 @@ let puppym;
 let puppymImg;
 let foxiny;
 let foxinyImg;
+let img;
+let someImg;
 
 //ignore
 // if (state === "cat") {
@@ -981,37 +984,37 @@ function setup() {
 
 function draw() {
   if (state === "start"){
-    startEndScreen();
+    startScreen();
   }
-  else if (state === "cat"){
+  if (state === "cat"){
     catImage.displayGrid();
   }
-  else if (state === "wolfchan"){
+  if (state === "wolfchan"){
     wolfchanImg.displayGrid();
   }
-  else if (state === "leebit"){
+  if (state === "leebit"){
     leebitImg.displayGrid();
   }
-  else if (state === "dwaekki"){
+  if (state === "dwaekki"){
     dwaekkiImg.displayGrid();
   }
-  else if (state === "jiniret"){
+  if (state === "jiniret"){
     jiniretImg.displayGrid();
   }
-  else if (state === "quokka"){
+  if (state === "quokka"){
     quokkaImg.displayGrid();
   }
-  else if (state === "bbokari"){
+  if (state === "bbokari"){
     bbokariImg.displayGrid();
   }
-  else if (state === "puppym"){
+  if (state === "puppym"){
     puppymImg.displayGrid();
   }
-  else if (state === "foxiny"){
+  if (state === "foxiny"){
     foxinyImg.displayGrid();
   }
-  else if (state === "end"){
-    startEndScreen();
+  if (state === "end"){
+    endScreen();
   }
 }
 
@@ -1052,6 +1055,30 @@ function setupImage() {
   }
   else {
     catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  }
+
+
+  //grid
+  //create grid
+  someImg = new Grid(img);
+  someImg.grid = someImg.generateEmptyGrid(someImg.GRID_SIZE, someImg.GRID_SIZE);
+  
+  //set grid size
+  if (height > width) {
+    someImg.cellSize = width / someImg.GRID_SIZE;
+  }
+  else {
+    someImg.cellSize = height / someImg.GRID_SIZE;
+  }
+  
+  //display grid
+  if (someImg.GRID_SIZE >= 40) {
+    someImg.img.resize(someImg.GRID_SIZE, someImg.GRID_SIZE);
+    someImg.imgColour = someImg.getColors(someImg.GRID_SIZE, someImg.GRID_SIZE);
+    someImg.blockNumber = someImg.numberImage(someImg.GRID_SIZE, someImg.GRID_SIZE);
+  }
+  else {
+    someImg = someImg.generateEmptyGrid(someImg.GRID_SIZE, someImg.GRID_SIZE);
   }
 
 
@@ -1247,13 +1274,18 @@ function setupImage() {
   }
 }
 
-//start and end screens
-function startEndScreen() {
+//start screen
+function startScreen() {
   if (state === "start"){
     background("white");
+
   }
-  else if (state === "end"){
+}
+
+function endScreen() {
+  if (state === "end"){
     background("black");
+
   }
 }
 
