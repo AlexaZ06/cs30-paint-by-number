@@ -8,7 +8,7 @@
 //line 459 in  wolfchan class throws an error 
 
 //set variables
-let state = "end";
+let state = "start";
 let cat;
 let catImage;
 let wolfChan;
@@ -1034,29 +1034,222 @@ function mousePressed() {
 
 //set up colouring image
 function setupImage() {
-  //cat
-  //create cat from class
-  catImage = new Gridcat(cat);
-  catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+  if (state === "cat") {
+    //cat
+    //create cat from class
+    catImage = new Gridcat(cat);
+    catImage.grid = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    
+    //set grid size
+    if (height > width) {
+      catImage.cellSize = width / catImage.GRID_SIZE;
+    }
+    else {
+      catImage.cellSize = height / catImage.GRID_SIZE;
+    }
+    
+    //display cat
+    if (catImage.GRID_SIZE >= 40) {
+      catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+    else {
+      catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
+    }
+  }
+  else if (state === "wolfchan"){
+    //wolf
+    //create wolf from class
+    wolfchanImg = new WolfChan(wolfChan);
+    wolfchanImg.grid = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+    
+    //set grid size
+    if (height > width) {
+      wolfchanImg.cellSize = width / wolfchanImg.GRID_SIZE;
+    }
+    else {
+      wolfchanImg.cellSize = height / wolfchanImg.GRID_SIZE;
+    }
+    
+    //display wolf
+    if (wolfchanImg.GRID_SIZE >= 40) {
+      wolfchanImg.img.resize(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+      wolfchanImg.imgColour = wolfchanImg.getColors(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+      wolfchanImg.blockNumber = wolfchanImg.numberImage(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+    }
+    else {
+      wolfchanImg = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
+    }
+  }
+  else if (state === "leebit"){
+    //rabbit
+    //create rabbit from class
+    leebitImg = new LeeBit(leeBit);
+    leebitImg.grid = leebitImg.generateEmptyGrid(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
+    
+    //set grid size
+    if (height > width) {
+      leebitImg.cellSize = width / leebitImg.GRID_SIZE;
+    }
+    else {
+      leebitImg.cellSize = height / leebitImg.GRID_SIZE;
+    }
+    
+    //display rabbit
+    if (leebitImg.GRID_SIZE >= 40) {
+      leebitImg.img.resize(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
+      leebitImg.imgColour = leebitImg.getColors(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
+      leebitImg.blockNumber = leebitImg.numberImage(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
+    }
+    else {
+      leebitImg = leebitImg.generateEmptyGrid(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
+    }
+  }
+  else if (state === "dwaekki"){
+    //dwaekki
+    //create pig-rabbit from class
+    dwaekkiImg = new Dwaekki(dwaekki);
+    dwaekkiImg.grid = dwaekkiImg.generateEmptyGrid(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
+     
+    //set grid size
+    if (height > width) {
+      dwaekkiImg.cellSize = width / dwaekkiImg.GRID_SIZE;
+    }
+    else {
+      dwaekkiImg.cellSize = height / dwaekkiImg.GRID_SIZE;
+    }
+    
+    //display pig-rabbit
+    if (dwaekkiImg.GRID_SIZE >= 40) {
+      dwaekkiImg.img.resize(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
+      dwaekkiImg.imgColour = dwaekkiImg.getColors(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
+      dwaekkiImg.blockNumber = dwaekkiImg.numberImage(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
+    }
+    else {
+      dwaekkiImg = dwaekkiImg.generateEmptyGrid(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
+    }
+  }
+  else if (state === "jiniret"){
+    //jiniret
+    //create ferret from class
+    jiniretImg = new Jiniret(jiniret);
+    jiniretImg.grid = jiniretImg.generateEmptyGrid(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
+     
+    //set grid size
+    if (height > width) {
+      jiniretImg.cellSize = width / jiniretImg.GRID_SIZE;
+    }
+    else {
+      jiniretImg.cellSize = height / jiniretImg.GRID_SIZE;
+    }
+    
+    //display ferret
+    if (jiniretImg.GRID_SIZE >= 40) {
+      jiniretImg.img.resize(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
+      jiniretImg.imgColour = jiniretImg.getColors(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
+      jiniretImg.blockNumber = jiniretImg.numberImage(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
+    }
+    else {
+      jiniretImg = jiniretImg.generateEmptyGrid(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
+    }
+  }
+  else if (state === "quokka"){
+    //quokka
+    //create quokka from class
+    quokkaImg = new Quokka(quokka);
+    quokkaImg.grid = quokkaImg.generateEmptyGrid(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
+     
+    //set grid size
+    if (height > width) {
+      quokkaImg.cellSize = width / quokkaImg.GRID_SIZE;
+    }
+    else {
+      quokkaImg.cellSize = height / quokkaImg.GRID_SIZE;
+    }
+    
+    //display quokka
+    if (quokkaImg.GRID_SIZE >= 40) {
+      quokkaImg.img.resize(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
+      quokkaImg.imgColour = quokkaImg.getColors(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
+      quokkaImg.blockNumber = quokkaImg.numberImage(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
+    }
+    else {
+      quokkaImg = quokkaImg.generateEmptyGrid(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
+    }
+  }
+  else if (state === "bbokari"){
+    //chick
+    //create chick from class
+    bbokariImg = new Bbokari(bbokari);
+    bbokariImg.grid = bbokariImg.generateEmptyGrid(bbokariImg.GRID_SIZE,bbokariImg.GRID_SIZE);
+       
+    //set grid size
+    if (height > width) {
+      bbokariImg.cellSize = width / bbokariImg.GRID_SIZE;
+    }
+    else {
+      bbokariImg.cellSize = height / bbokariImg.GRID_SIZE;
+    }
+      
+    //display chick
+    if (bbokariImg.GRID_SIZE >= 40) {
+      bbokariImg.img.resize(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
+      bbokariImg.imgColour = bbokariImg.getColors(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
+      bbokariImg.blockNumber = bbokariImg.numberImage(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
+    }
+    else {
+      bbokariImg = bbokariImg.generateEmptyGrid(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
+    }
+  }
+  else if (state === "puppym"){   
+    //puppy
+    //create puppy from class
+    puppymImg = new Puppym(puppym);
+    puppymImg.grid = puppymImg.generateEmptyGrid(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
+     
+    //set grid size
+    if (height > width) {
+      puppymImg.cellSize = width / puppymImg.GRID_SIZE;
+    }
+    else {
+      puppymImg.cellSize = height / puppymImg.GRID_SIZE;
+    }
+    
+    //display puppy
+    if (puppymImg.GRID_SIZE >= 40) {
+      puppymImg.img.resize(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
+      puppymImg.imgColour = puppymImg.getColors(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
+      puppymImg.blockNumber = puppymImg.numberImage(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
+    }
+    else {
+      puppymImg = puppymImg.generateEmptyGrid(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
+    } 
+  }
+  else if (state === "foxiny"){
+    //fox
+    //create fox from class
+    foxinyImg = new Foxiny(foxiny);
+    foxinyImg.grid = foxinyImg.generateEmptyGrid(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
+   
+    //set grid size
+    if (height > width) {
+      foxinyImg.cellSize = width / foxinyImg.GRID_SIZE;
+    }
+    else {
+      foxinyImg.cellSize = height / foxinyImg.GRID_SIZE;
+    }
   
-  //set grid size
-  if (height > width) {
-    catImage.cellSize = width / catImage.GRID_SIZE;
+    //display fox
+    if (foxinyImg.GRID_SIZE >= 40) {
+      foxinyImg.img.resize(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
+      foxinyImg.imgColour = foxinyImg.getColors(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
+      foxinyImg.blockNumber = foxinyImg.numberImage(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
+    }
+    else {
+      foxinyImg = foxinyImg.generateEmptyGrid(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
+    }
   }
-  else {
-    catImage.cellSize = height / catImage.GRID_SIZE;
-  }
-  
-  //display cat
-  if (catImage.GRID_SIZE >= 40) {
-    catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
-    catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
-  else {
-    catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
-  }
-
 
   //grid
   //create grid
@@ -1080,198 +1273,6 @@ function setupImage() {
   else {
     someImg = someImg.generateEmptyGrid(someImg.GRID_SIZE, someImg.GRID_SIZE);
   }
-
-
-  //wolf
-  //create wolf from class
-  wolfchanImg = new WolfChan(wolfChan);
-  wolfchanImg.grid = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
-  
-  //set grid size
-  if (height > width) {
-    wolfchanImg.cellSize = width / wolfchanImg.GRID_SIZE;
-  }
-  else {
-    wolfchanImg.cellSize = height / wolfchanImg.GRID_SIZE;
-  }
-  
-  //display wolf
-  if (wolfchanImg.GRID_SIZE >= 40) {
-    wolfchanImg.img.resize(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
-    wolfchanImg.imgColour = wolfchanImg.getColors(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
-    wolfchanImg.blockNumber = wolfchanImg.numberImage(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
-  }
-  else {
-    wolfchanImg = wolfchanImg.generateEmptyGrid(wolfchanImg.GRID_SIZE, wolfchanImg.GRID_SIZE);
-  }
-
-
-  //rabbit
-  //create rabbit from class
-  leebitImg = new LeeBit(leeBit);
-  leebitImg.grid = leebitImg.generateEmptyGrid(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
-  
-  //set grid size
-  if (height > width) {
-    leebitImg.cellSize = width / leebitImg.GRID_SIZE;
-  }
-  else {
-    leebitImg.cellSize = height / leebitImg.GRID_SIZE;
-  }
-  
-  //display rabbit
-  if (leebitImg.GRID_SIZE >= 40) {
-    leebitImg.img.resize(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
-    leebitImg.imgColour = leebitImg.getColors(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
-    leebitImg.blockNumber = leebitImg.numberImage(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
-  }
-  else {
-    leebitImg = leebitImg.generateEmptyGrid(leebitImg.GRID_SIZE, leebitImg.GRID_SIZE);
-  }
-
-
-  //dwaekki
-  //create pig-rabbit from class
-  dwaekkiImg = new Dwaekki(dwaekki);
-  dwaekkiImg.grid = dwaekkiImg.generateEmptyGrid(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
-   
-  //set grid size
-  if (height > width) {
-    dwaekkiImg.cellSize = width / dwaekkiImg.GRID_SIZE;
-  }
-  else {
-    dwaekkiImg.cellSize = height / dwaekkiImg.GRID_SIZE;
-  }
-  
-  //display pig-rabbit
-  if (dwaekkiImg.GRID_SIZE >= 40) {
-    dwaekkiImg.img.resize(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
-    dwaekkiImg.imgColour = dwaekkiImg.getColors(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
-    dwaekkiImg.blockNumber = dwaekkiImg.numberImage(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
-  }
-  else {
-    dwaekkiImg = dwaekkiImg.generateEmptyGrid(dwaekkiImg.GRID_SIZE, dwaekkiImg.GRID_SIZE);
-  }
-
-
-  //jiniret
-  //create ferret from class
-  jiniretImg = new Jiniret(jiniret);
-  jiniretImg.grid = jiniretImg.generateEmptyGrid(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
-   
-  //set grid size
-  if (height > width) {
-    jiniretImg.cellSize = width / jiniretImg.GRID_SIZE;
-  }
-  else {
-    jiniretImg.cellSize = height / jiniretImg.GRID_SIZE;
-  }
-  
-  //display ferret
-  if (jiniretImg.GRID_SIZE >= 40) {
-    jiniretImg.img.resize(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
-    jiniretImg.imgColour = jiniretImg.getColors(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
-    jiniretImg.blockNumber = jiniretImg.numberImage(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
-  }
-  else {
-    jiniretImg = jiniretImg.generateEmptyGrid(jiniretImg.GRID_SIZE, jiniretImg.GRID_SIZE);
-  }
-
-
-  //quokka
-  //create quokka from class
-  quokkaImg = new Quokka(quokka);
-  quokkaImg.grid = quokkaImg.generateEmptyGrid(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
-   
-  //set grid size
-  if (height > width) {
-    quokkaImg.cellSize = width / quokkaImg.GRID_SIZE;
-  }
-  else {
-    quokkaImg.cellSize = height / quokkaImg.GRID_SIZE;
-  }
-  
-  //display quokka
-  if (quokkaImg.GRID_SIZE >= 40) {
-    quokkaImg.img.resize(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
-    quokkaImg.imgColour = quokkaImg.getColors(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
-    quokkaImg.blockNumber = quokkaImg.numberImage(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
-  }
-  else {
-    quokkaImg = quokkaImg.generateEmptyGrid(quokkaImg.GRID_SIZE, quokkaImg.GRID_SIZE);
-  }
-
-
-  //chick
-  //create chick from class
-  bbokariImg = new Bbokari(bbokari);
-  bbokariImg.grid = bbokariImg.generateEmptyGrid(bbokariImg.GRID_SIZE,bbokariImg.GRID_SIZE);
-     
-  //set grid size
-  if (height > width) {
-    bbokariImg.cellSize = width / bbokariImg.GRID_SIZE;
-  }
-  else {
-    bbokariImg.cellSize = height / bbokariImg.GRID_SIZE;
-  }
-    
-  //display chick
-  if (bbokariImg.GRID_SIZE >= 40) {
-    bbokariImg.img.resize(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
-    bbokariImg.imgColour = bbokariImg.getColors(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
-    bbokariImg.blockNumber = bbokariImg.numberImage(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
-  }
-  else {
-    bbokariImg = bbokariImg.generateEmptyGrid(bbokariImg.GRID_SIZE, bbokariImg.GRID_SIZE);
-  }
-
-
-  //puppy
-  //create puppy from class
-  puppymImg = new Puppym(puppym);
-  puppymImg.grid = puppymImg.generateEmptyGrid(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
-   
-  //set grid size
-  if (height > width) {
-    puppymImg.cellSize = width / puppymImg.GRID_SIZE;
-  }
-  else {
-    puppymImg.cellSize = height / puppymImg.GRID_SIZE;
-  }
-  
-  //display puppy
-  if (puppymImg.GRID_SIZE >= 40) {
-    puppymImg.img.resize(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
-    puppymImg.imgColour = puppymImg.getColors(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
-    puppymImg.blockNumber = puppymImg.numberImage(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
-  }
-  else {
-    puppymImg = puppymImg.generateEmptyGrid(puppymImg.GRID_SIZE, puppymImg.GRID_SIZE);
-  } 
-
-
-  //fox
-  //create fox from class
-  foxinyImg = new Foxiny(foxiny);
-  foxinyImg.grid = foxinyImg.generateEmptyGrid(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
- 
-  //set grid size
-  if (height > width) {
-    foxinyImg.cellSize = width / foxinyImg.GRID_SIZE;
-  }
-  else {
-    foxinyImg.cellSize = height / foxinyImg.GRID_SIZE;
-  }
-
-  //display fox
-  if (foxinyImg.GRID_SIZE >= 40) {
-    foxinyImg.img.resize(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
-    foxinyImg.imgColour = foxinyImg.getColors(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
-    foxinyImg.blockNumber = foxinyImg.numberImage(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
-  }
-  else {
-    foxinyImg = foxinyImg.generateEmptyGrid(foxinyImg.GRID_SIZE, foxinyImg.GRID_SIZE);
-  }
 }
 
 //start screen
@@ -1279,13 +1280,41 @@ function startScreen() {
   if (state === "start"){
     background("white");
 
+    //cat
+    circle();
+
+    //wolf
+    circle();
+
+    //rabbit
+    circle();
+
+    //pig-rabbit
+    circle();
+
+    //ferret
+    circle();
+
+    //quokka
+    circle();
+
+    //chick
+    circle();
+
+    //puppy
+    circle();
+
+    //fox
+    circle();
+
+    //grid
+    circle();
   }
 }
 
 function endScreen() {
   if (state === "end"){
     background("black");
-
   }
 }
 
