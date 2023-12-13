@@ -583,7 +583,6 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  setupImage();
 }
 
 function draw() {
@@ -594,6 +593,7 @@ function draw() {
     catImage.displayGrid();
   }
   if (state === "skzoo"){
+    setupImage();
     skzoo.displayGrid();
   }
   if (state === "end"){
@@ -650,8 +650,8 @@ function setupImage() {
   else if (state === "dwaekki"){
     skzoo = new Skzoo(dwaekki);
   }
-  else if (state === "jinerit"){
-    skzoo = new Skzoo(wolfChan);
+  else if (state === "jineret"){
+    skzoo = new Skzoo(jiniret);
   }
   else if (state === "quokka"){
     skzoo = new Skzoo(wolfChan);
@@ -665,42 +665,66 @@ function setupImage() {
   else if (state === "foxiny"){
     skzoo = new Skzoo(wolfChan);
   }
+
+  skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    
+  //set grid size
+  if (height > width) {
+    skzoo.cellSize = width / skzoo.GRID_SIZE;
+  }
+  else {
+    skzoo.cellSize = height / skzoo.GRID_SIZE;
+  }
+  
+  //display cat
+  if (skzoo.GRID_SIZE >= 40) {
+    skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+  }
+  else {
+    skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+  }
 }
 
 //start screen
 function startScreen() {
   if (state === "start"){
+    let size = 75;
+    let shift = size/2;
+    let w = (width-size)/5;
+    let h = height/4;
     background("white");
 
     //cat
-    circle();
+    circle(w-size*1.5, h , size);
 
     //wolf
-    circle();
+    circle(w*2-size*1.5, h, size);
 
     //rabbit
-    circle();
+    circle(w*3-size*1.5, h, size);
 
     //pig-rabbit
-    circle();
+    circle(w*4-size*1.5, h, size);
 
     //ferret
-    circle();
+    circle(w*5-size*1.5, h, size);
 
     //quokka
-    circle();
-
+    circle(w-size*1.5, h*3, size);
+ 
     //chick
-    circle();
+    circle(w*2-size*1.5, h*3, size);
 
     //puppy
-    circle();
+    circle(w*3-size*1.5, h*3, size);
 
     //fox
-    circle();
+    circle(w*4-size*1.5, h*3, size);
 
     //grid
-    circle();
+    circle(w*5-size*1.5, h*3, size);
   }
 }
 
