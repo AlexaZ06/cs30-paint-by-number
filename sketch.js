@@ -9,6 +9,12 @@
 
 //set variables
 let state = "start";
+let diameter;
+let shift;
+let w; 
+let h;
+
+//colouring image
 let cat;
 let catImage;
 let skzoo;
@@ -608,11 +614,21 @@ function keyTyped() {
 
 //fill in cell with colour when 
 function mousePressed() {
+  if (state === "cat") {
+    let y = Math.floor(mouseY / catImage.cellSize);
+    let x = Math.floor(mouseX / catImage.cellSize);
+  
+    catImage.toggleCell(x, y);   //current cell
+  }
+  if (state === "skzoo"){
+    let y = Math.floor(mouseY / skzoo.cellSize);
+    let x = Math.floor(mouseX / skzoo.cellSize);
 
-  let y = Math.floor(mouseY / catImage.cellSize);
-  let x = Math.floor(mouseX / catImage.cellSize);
-
-  catImage.toggleCell(x, y);   //current cell
+    skzoo.toggleCell(x,y);
+  }
+  if (mouseX && mouseY){
+    
+  }
 }
 
 //set up colouring image
@@ -643,27 +659,35 @@ function setupImage() {
   }
   else if (state === "wolfchan"){
     skzoo = new Skzoo(wolfChan);
+    state = "skzoo";
   }
   else if (state === "leebit"){
     skzoo = new Skzoo(leeBit);
+    state = "skzoo";
   }
   else if (state === "dwaekki"){
     skzoo = new Skzoo(dwaekki);
+    state = "skzoo";
   }
   else if (state === "jineret"){
     skzoo = new Skzoo(jiniret);
+    state = "skzoo";
   }
   else if (state === "quokka"){
-    skzoo = new Skzoo(wolfChan);
+    skzoo = new Skzoo(quokka);
+    state = "skzoo";
   }
   else if (state === "bbokari"){
-    skzoo = new Skzoo(wolfChan);
+    skzoo = new Skzoo(bbokari);
+    state = "skzoo";
   }
   else if (state === "puppym"){
-    skzoo = new Skzoo(wolfChan);
+    skzoo = new Skzoo(puppym);
+    state = "skzoo";
   }
   else if (state === "foxiny"){
-    skzoo = new Skzoo(wolfChan);
+    skzoo = new Skzoo(foxiny);
+    state = "skzoo";
   }
 
   skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -690,41 +714,41 @@ function setupImage() {
 //start screen
 function startScreen() {
   if (state === "start"){
-    let size = 75;
-    let shift = size/2;
-    let w = (width-size)/5;
+    let diameter = 100;
+    let shift = diameter/2;
+    let w = (width-diameter)/5;
     let h = height/4;
     background("white");
 
     //cat
-    circle(w-size*1.5, h , size);
+    circle(w-diameter*1.5+shift, h , diameter);
 
     //wolf
-    circle(w*2-size*1.5, h, size);
+    circle(w*2-diameter*1.5+shift, h, diameter);
 
     //rabbit
-    circle(w*3-size*1.5, h, size);
+    circle(w*3-diameter*1.5+shift, h, diameter);
 
     //pig-rabbit
-    circle(w*4-size*1.5, h, size);
+    circle(w*4-diameter*1.5+shift, h, diameter);
 
     //ferret
-    circle(w*5-size*1.5, h, size);
+    circle(w*5-diameter*1.5+shift, h, diameter);
 
     //quokka
-    circle(w-size*1.5, h*3, size);
+    circle(w-diameter*1.5+shift, h*3, diameter);
  
     //chick
-    circle(w*2-size*1.5, h*3, size);
+    circle(w*2-diameter*1.5+shift, h*3, diameter);
 
     //puppy
-    circle(w*3-size*1.5, h*3, size);
+    circle(w*3-diameter*1.5+shift, h*3, diameter);
 
     //fox
-    circle(w*4-size*1.5, h*3, size);
+    circle(w*4-diameter*1.5+shift, h*3, diameter);
 
     //grid
-    circle(w*5-size*1.5, h*3, size);
+    circle(w*5-diameter*1.5+shift, h*3, diameter);
   }
 }
 
