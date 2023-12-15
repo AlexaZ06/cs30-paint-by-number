@@ -10,8 +10,11 @@
 //set variables
 let state = "start";
 let diameter;
-let shift;
-let w; 
+let change1;
+let change2;
+let change3;
+let change4;
+let change5;
 let h;
 
 //colouring image
@@ -589,6 +592,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // setupImage();
 }
 
 function draw() {
@@ -626,8 +630,8 @@ function mousePressed() {
 
     skzoo.toggleCell(x,y);
   }
-  if (mouseX && mouseY){
-    
+  if (state === "start"){
+    buttonPressed();
   }
 }
 
@@ -714,41 +718,46 @@ function setupImage() {
 //start screen
 function startScreen() {
   if (state === "start"){
-    let diameter = 100;
+    diameter = 100;
     let shift = diameter/2;
     let w = (width-diameter)/5;
+    change1 = w-diameter*1.5+shift;
+    change2 = w*2-diameter*1.5+shift;
+    change3 = w*3-diameter*1.5+shift;
+    change4 = w*4-diameter*1.5+shift;
+    change5 = w*5-diameter*1.5+shift;
     let h = height/4;
     background("white");
 
     //cat
-    circle(w-diameter*1.5+shift, h , diameter);
+    circle(change1, h , diameter);
 
     //wolf
-    circle(w*2-diameter*1.5+shift, h, diameter);
+    circle(change2, h, diameter);
 
     //rabbit
-    circle(w*3-diameter*1.5+shift, h, diameter);
+    circle(change3, h, diameter);
 
     //pig-rabbit
-    circle(w*4-diameter*1.5+shift, h, diameter);
+    circle(change4, h, diameter);
 
     //ferret
-    circle(w*5-diameter*1.5+shift, h, diameter);
+    circle(change5, h, diameter);
 
     //quokka
-    circle(w-diameter*1.5+shift, h*3, diameter);
+    circle(change1, h*3, diameter);
  
     //chick
-    circle(w*2-diameter*1.5+shift, h*3, diameter);
+    circle(change2, h*3, diameter);
 
     //puppy
-    circle(w*3-diameter*1.5+shift, h*3, diameter);
+    circle(change3, h*3, diameter);
 
     //fox
-    circle(w*4-diameter*1.5+shift, h*3, diameter);
+    circle(change4, h*3, diameter);
 
     //grid
-    circle(w*5-diameter*1.5+shift, h*3, diameter);
+    circle(change5, h*3, diameter);
   }
 }
 
@@ -774,5 +783,11 @@ function catImageKeys() {
   }
   else if (key === "4") {
     catImage.colour = 4;
+  }
+}
+
+function buttonPressed() {
+  if (mouseX < change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    state = "cat";
   }
 }
