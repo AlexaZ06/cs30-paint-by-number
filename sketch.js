@@ -9,6 +9,7 @@
 
 //set variables
 let state = "start";
+let state1 = "";
 let diameter;
 let change1;
 let change2;
@@ -16,6 +17,7 @@ let change3;
 let change4;
 let change5;
 let h;
+let h1;
 
 //colouring image
 let cat;
@@ -434,7 +436,7 @@ class Grid extends Gridcat {
   }
 }
 
-class Skzoo extends Grid {
+class Skzoo extends Gridcat {
   constructor(img) {
     super(img);
   }
@@ -592,10 +594,10 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // setupImage();
 }
 
 function draw() {
+  setupImage();
   if (state === "start"){
     startScreen();
   }
@@ -631,7 +633,7 @@ function mousePressed() {
     skzoo.toggleCell(x,y);
   }
   if (state === "start"){
-    buttonPressed();
+    buttonPushed();
   }
 }
 
@@ -661,72 +663,76 @@ function setupImage() {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
     }
   }
-  else if (state === "wolfchan"){
-    skzoo = new Skzoo(wolfChan);
-    state = "skzoo";
-  }
-  else if (state === "leebit"){
-    skzoo = new Skzoo(leeBit);
-    state = "skzoo";
-  }
-  else if (state === "dwaekki"){
-    skzoo = new Skzoo(dwaekki);
-    state = "skzoo";
-  }
-  else if (state === "jineret"){
-    skzoo = new Skzoo(jiniret);
-    state = "skzoo";
-  }
-  else if (state === "quokka"){
-    skzoo = new Skzoo(quokka);
-    state = "skzoo";
-  }
-  else if (state === "bbokari"){
-    skzoo = new Skzoo(bbokari);
-    state = "skzoo";
-  }
-  else if (state === "puppym"){
-    skzoo = new Skzoo(puppym);
-    state = "skzoo";
-  }
-  else if (state === "foxiny"){
-    skzoo = new Skzoo(foxiny);
-    state = "skzoo";
+  if (state === "skzoo"){
+    if (state1 === "wolfchan"){
+      skzoo = new Skzoo(wolfChan);
+      state = "skzoo";
+    }
+    else if (state1 === "leebit"){
+      skzoo = new Skzoo(leeBit);
+      state = "skzoo";
+    }
+    else if (state1 === "dwaekki"){
+      skzoo = new Skzoo(dwaekki);
+      state = "skzoo";
+    }
+    else if (state1 === "jineret"){
+      skzoo = new Skzoo(jiniret);
+      state = "skzoo";
+    }
+    else if (state1 === "quokka"){
+      skzoo = new Skzoo(quokka);
+      state = "skzoo";
+    }
+    else if (state1 === "bbokari"){
+      skzoo = new Skzoo(bbokari);
+      state = "skzoo";
+    }
+    else if (state1 === "puppym"){
+      skzoo = new Skzoo(puppym);
+      state = "skzoo";
+    }
+    else if (state1 === "foxiny"){
+      skzoo = new Skzoo(foxiny);
+      state = "skzoo";
+    }
+
+    skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+      
+    //set grid size
+    if (height > width) {
+      skzoo.cellSize = width / skzoo.GRID_SIZE;
+    }
+    else {
+      skzoo.cellSize = height / skzoo.GRID_SIZE;
+    }
+    
+    //display animal
+    if (skzoo.GRID_SIZE >= 40) {
+      skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+      skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+      skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    }
+    else {
+      skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    }
   }
 
-  skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-    
-  //set grid size
-  if (height > width) {
-    skzoo.cellSize = width / skzoo.GRID_SIZE;
-  }
-  else {
-    skzoo.cellSize = height / skzoo.GRID_SIZE;
-  }
-  
-  //display cat
-  if (skzoo.GRID_SIZE >= 40) {
-    skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-    skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-    skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-  }
-  else {
-    skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-  }
 }
 
 //start screen
 function startScreen() {
   if (state === "start"){
-    diameter = 100;
+    diameter = width/15;
     let shift = diameter/2;
     let w = (width-diameter)/5;
-    change1 = w-diameter*1.5+shift;
-    change2 = w*2-diameter*1.5+shift;
-    change3 = w*3-diameter*1.5+shift;
-    change4 = w*4-diameter*1.5+shift;
-    change5 = w*5-diameter*1.5+shift;
+    change1 = w-diameter;
+    change2 = w*2-diameter;
+    change3 = w*3-diameter;
+    change4 = w*4-diameter;
+    change5 = w*5-diameter;
     let h = height/4;
+    h1 = h*3;
     background("white");
 
     //cat
@@ -786,8 +792,44 @@ function catImageKeys() {
   }
 }
 
-function buttonPressed() {
-  if (mouseX < change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+function buttonPushed() {
+  if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     state = "cat";
   }
+  if (mouseX < change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    state = "skzoo";
+    state1 = "wolfchan";
+  }
+  if (mouseX < change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    state = "skzoo";
+    state1 = "leebit";
+  }
+  if (mouseX < change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    state = "skzoo";
+    state1 = "dwaekki";
+  }
+  if (mouseX < change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    state = "skzoo";
+    state1 = "jiniret";
+  }
+  if (mouseX < change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    state = "skzoo";
+    state1 = "quokka";
+  }
+  if (mouseX < change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    state = "skzoo";
+    state1 = "bbokari";
+  }
+  if (mouseX < change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    state = "skzoo";
+    state1 = "puppym";
+  }
+  if (mouseX < change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    state = "skzoo";
+    state1 = "foxiny";
+  }
+  if (mouseX < change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    state = "user";
+  }
+  return state;
 }

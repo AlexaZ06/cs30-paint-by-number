@@ -3,9 +3,8 @@
 My project will be creating a paint/colour by number with images of my choice and if I have time I would like to be able to have the person upload an image themselves and colour in that image.
 
 ## Need to Have List
-- Start screen
+- Start screen/screen with images to choose to colour
 - Multiple images (at least 8)
-- Screen with images to choose to colour
 - End screen
 - Image pixalated in grid
 - Click to change colour of grid on only the correct bricks
