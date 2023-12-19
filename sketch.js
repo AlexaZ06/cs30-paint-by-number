@@ -10,7 +10,7 @@
 //set variables
 let state = "start";
 let state1 = "";
-let diameter;
+let radius;
 let change1;
 let change2;
 let change3;
@@ -588,8 +588,15 @@ class Skzoo extends Gridcat {
 
 //load image to colour
 function preload() {
-  cat = loadImage("cat.png");
-  wolfChan = loadImage("wolfchan.png");
+  cat = loadImage("assets/cat.png");
+  wolfChan = loadImage("assets/WolfChan.png");
+  leeBit = loadImage("assets/Leebit.png");
+  dwaekki = loadImage("assets/Dwaekki.png");
+  jiniret = loadImage("assets/Jiniret.png");
+  quokka = loadImage("assets/Quokka.png");
+  bbokari = loadImage("assets/Bbokari.png");
+  puppym = loadImage("assets/PuppyM.png");
+  foxiny = loadImage("assets/Foxiny.png");
 }
 
 function setup() {
@@ -597,11 +604,11 @@ function setup() {
 }
 
 function draw() {
-  setupImage();
   if (state === "start"){
     startScreen();
   }
   if (state === "cat"){
+    setupImage();
     catImage.displayGrid();
   }
   if (state === "skzoo"){
@@ -723,47 +730,47 @@ function setupImage() {
 //start screen
 function startScreen() {
   if (state === "start"){
-    diameter = width/15;
-    let shift = diameter/2;
-    let w = (width-diameter)/5;
-    change1 = w-diameter;
-    change2 = w*2-diameter;
-    change3 = w*3-diameter;
-    change4 = w*4-diameter;
-    change5 = w*5-diameter;
+    radius = width/15;
+    let w = (width-radius)/5;
+    change1 = w-radius;
+    change2 = w*2-radius;
+    change3 = w*3-radius;
+    change4 = w*4-radius;
+    change5 = w*5-radius;
     let h = height/4;
     h1 = h*3;
     background("white");
+    fill("lightblue");
 
     //cat
-    circle(change1, h , diameter);
+    circle(change1, h , radius);
 
     //wolf
-    circle(change2, h, diameter);
+    circle(change2, h, radius);
 
     //rabbit
-    circle(change3, h, diameter);
+    circle(change3, h, radius);
 
     //pig-rabbit
-    circle(change4, h, diameter);
+    circle(change4, h, radius);
 
     //ferret
-    circle(change5, h, diameter);
+    circle(change5, h, radius);
 
     //quokka
-    circle(change1, h*3, diameter);
+    circle(change1, h*3, radius);
  
     //chick
-    circle(change2, h*3, diameter);
+    circle(change2, h*3, radius);
 
     //puppy
-    circle(change3, h*3, diameter);
+    circle(change3, h*3, radius);
 
     //fox
-    circle(change4, h*3, diameter);
+    circle(change4, h*3, radius);
 
     //grid
-    circle(change5, h*3, diameter);
+    circle(change5, h*3, radius);
   }
 }
 
@@ -793,43 +800,43 @@ function catImageKeys() {
 }
 
 function buttonPushed() {
-  if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+  if (mouseX > change1-radius/2 && mouseX < change1+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "cat";
   }
-  if (mouseX < change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+  if (mouseX < change1-radius/2 && mouseX < change1+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "wolfchan";
   }
-  if (mouseX < change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+  if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "leebit";
   }
-  if (mouseX < change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+  if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "dwaekki";
   }
-  if (mouseX < change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+  if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "jiniret";
   }
-  if (mouseX < change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+  if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "quokka";
   }
-  if (mouseX < change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+  if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "bbokari";
   }
-  if (mouseX < change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+  if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "puppym";
   }
-  if (mouseX < change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+  if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "foxiny";
   }
-  if (mouseX < change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
-    state = "user";
+  if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+    state = "userimage";
   }
   return state;
 }
