@@ -584,6 +584,14 @@ class Skzoo extends Gridcat {
     }
     return blocknum;
   }
+
+  toggleCell(x, y){
+    super.toggleCell(x,y);
+  }
+
+  displayGrid() {
+    super.displayGrid();
+  }
 }
 
 //load image to colour
@@ -608,7 +616,6 @@ function draw() {
     startScreen();
   }
   if (state === "cat"){
-    setupImage();
     catImage.displayGrid();
   }
   if (state === "skzoo"){
@@ -622,7 +629,9 @@ function draw() {
 
 //change colour of fill base on key
 function keyTyped() {
-  catImageKeys();
+  if (state === "cat"){
+    catImageKeys();
+  }
 }
 
 //fill in cell with colour when 
@@ -643,6 +652,9 @@ function mousePressed() {
     buttonPushed();
   }
 }
+
+//display
+
 
 //set up colouring image
 function setupImage() {
@@ -673,35 +685,27 @@ function setupImage() {
   if (state === "skzoo"){
     if (state1 === "wolfchan"){
       skzoo = new Skzoo(wolfChan);
-      state = "skzoo";
     }
     else if (state1 === "leebit"){
       skzoo = new Skzoo(leeBit);
-      state = "skzoo";
     }
     else if (state1 === "dwaekki"){
       skzoo = new Skzoo(dwaekki);
-      state = "skzoo";
     }
     else if (state1 === "jineret"){
       skzoo = new Skzoo(jiniret);
-      state = "skzoo";
     }
     else if (state1 === "quokka"){
       skzoo = new Skzoo(quokka);
-      state = "skzoo";
     }
     else if (state1 === "bbokari"){
       skzoo = new Skzoo(bbokari);
-      state = "skzoo";
     }
     else if (state1 === "puppym"){
       skzoo = new Skzoo(puppym);
-      state = "skzoo";
     }
     else if (state1 === "foxiny"){
       skzoo = new Skzoo(foxiny);
-      state = "skzoo";
     }
 
     skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -737,7 +741,7 @@ function startScreen() {
     change3 = w*3-radius;
     change4 = w*4-radius;
     change5 = w*5-radius;
-    let h = height/4;
+    h = height/4;
     h1 = h*3;
     background("white");
     fill("lightblue");
@@ -782,6 +786,7 @@ function endScreen() {
 
 //keys for cat
 function catImageKeys() {
+  console.log("here");
   if (key === "0") {
     catImage.colour = 0;
   }
@@ -797,46 +802,57 @@ function catImageKeys() {
   else if (key === "4") {
     catImage.colour = 4;
   }
+  console.log(catImage.colour);
 }
 
 function buttonPushed() {
   if (mouseX > change1-radius/2 && mouseX < change1+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "cat";
+    setupImage();
   }
-  if (mouseX < change1-radius/2 && mouseX < change1+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX < change1-radius/2 && mouseX < change1+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "wolfchan";
+    setupImage();
   }
-  if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "leebit";
+    setupImage();
   }
-  if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "dwaekki";
+    setupImage();
   }
-  if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "jiniret";
+    setupImage();
   }
-  if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "quokka";
+    setupImage();
   }
-  if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "bbokari";
+    setupImage();
   }
-  if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "skzoo";
     state1 = "puppym";
+    setupImage();
   }
-  if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
     state = "skzoo";
     state1 = "foxiny";
+    setupImage();
   }
-  if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
     state = "userimage";
+    setupImage();
   }
   return state;
 }
