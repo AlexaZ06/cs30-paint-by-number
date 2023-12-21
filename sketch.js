@@ -10,7 +10,7 @@
 //set variables
 let state = "start";
 let state1 = "";
-let radius;
+let diameter;
 let change1;
 let change2;
 let change3;
@@ -224,7 +224,7 @@ class Grid extends Gridcat {
 
   //create grid
   generateEmptyGrid(cols, rows) {
-    super.generateEmptyGrid(cols, rows);
+    return super.generateEmptyGrid(cols, rows);
   }
 
   //gathers colours
@@ -443,12 +443,12 @@ class Skzoo extends Gridcat {
 
   //create grid
   generateEmptyGrid(cols,rows) {
-    super.generateEmptyGrid(cols, rows);
+    return super.generateEmptyGrid(cols, rows);
   }
 
   //get colours 
   getColors(cols, rows) {
-    super.getColors(cols,rows);
+    return super.getColors(cols,rows);
   }
 
   //assign numbers to colours
@@ -457,7 +457,7 @@ class Skzoo extends Gridcat {
     for (let y = 0; y < rows; y++) {
       blocknum.push([]);
       for (let x = 0; x < cols; x++) {
-  
+        console.log(this);
         //white
         if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
           || this.imgColour[y][x][3] <= 40) {
@@ -466,71 +466,72 @@ class Skzoo extends Gridcat {
   
         //pink 
         else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
-          blocknum[y].push(3);
+          blocknum[y].push(1);
         }
         //black
         else if (this.imgColour[y][x][0] <= 40 && this.imgColour[y][x][1] <= 40 && this.imgColour[y][x][2] <= 40
           || this.imgColour[y][x][3] >= 200) {
-          blocknum[y].push(4);
+          blocknum[y].push(2);
         }
 
-        if (this.img === wolfChan){
+        //colours for specific images
+        if (state1 === "wolfchan"){
           //light grey
           if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
             this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
             this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
     
           //dark grey
           else if (this.imgColour[y][x][0] < 140 && this.imgColour[y][x][0] > 40 &&
             this.imgColour[y][x][1] < 140 && this.imgColour[y][x][1] > 40 &&
             this.imgColour[y][x][2] < 140 && this.imgColour[y][x][2] > 40) {
-            blocknum[y].push(2);
+            blocknum[y].push(4);
           }
         }
 
-        else if (this.img === leeBit || this.img === jiniret){
+        else if (state1 === "leebit" || state1 === "jiniret"){
           //light grey
           if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
             this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
             this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
         }
 
-        else if (this.img === dwaekki){
+        else if (state1 === "dwaekki"){
           //darker pink
           if (this.imgColour[y][x][0] > this.imgColour[y][x][1] &&
           this.imgColour[y][x][0] > this.imgColour[y][x][2] &&
           this.imgColour[y][x][2] > this.imgColour[y][x][1]) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
 
         }
 
-        else if (this.img === quokka){
+        else if (state1 === "quokka"){
           //light brown
           if (this.imgColour[y][x][0] < 200 && this.imgColour[y][x][0] >= 170 &&
           this.imgColour[y][x][1] < 170 && this.imgColour[y][x][1] >= 140 &&
           this.imgColour[y][x][2] < 140 && this.imgColour[y][x][2] >= 120) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
 
           //Brown
           else if (this.imgColour[y][x][0] < 170 && this.imgColour[y][x][0] >= 100 &&
           this.imgColour[y][x][1] < 100 && this.imgColour[y][x][1] >= 60 &&
           this.imgColour[y][x][2] < 60 && this.imgColour[y][x][2] >= 0) {
-            blocknum[y].push(2);
+            blocknum[y].push(4);
           }
         }
 
-        else if (this.img === bbokari){
+        else if (state1 === "bbokari"){
           //pastel yellow
           if (this.imgColour[y][x][0] < 200 && this.imgColour[y][x][0] >= 170 &&
           this.imgColour[y][x][1] < 170 && this.imgColour[y][x][1] >= 140 &&
           this.imgColour[y][x][2] < 160) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
 
           //yellow
@@ -538,23 +539,23 @@ class Skzoo extends Gridcat {
           this.imgColour[y][x][0] > this.imagColour[y][x][2] &&
           this.imgColour[y][x][1] > this.imgColour[y][x][2] &&
           this.imgColour[y][x][2] < 160) {
-            blocknum[y].push(2);
+            blocknum[y].push(4);
           }
         }
 
-        else if (this.img === puppym){
+        else if (state1 === "puppym"){
           //tan
           if (this.imgColour[y][x][0] > 200 &&
           this.imgColour[y][x][1] < 190 && this.imgColour[y][x][1] >= 150 &&
           this.imgColour[y][x][2] < 150 && this.imgColour[y][x][2] >= 130) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
 
           //light tan
           else if (this.imgColour[y][x][0] > 230 &&
           this.imgColour[y][x][1] < 200 && this.imagColour[y][x][1] >= 180 &&
           this.imgColour[y][x][2] < 180 && this.imgColour[y][x][2] >= 160) {
-            blocknum[y].push(2);
+            blocknum[y].push(4);
           }
         }
 
@@ -563,21 +564,21 @@ class Skzoo extends Gridcat {
           if (this.imgColour[y][x][0] > 200 &&
           this.imgColour[y][x][1] < 190 && this.imgColour[y][x][1] >= 150 &&
           this.imgColour[y][x][2] < 150 && this.imgColour[y][x][2] >= 130) {
-            blocknum[y].push(1);
+            blocknum[y].push(3);
           }
 
           //light tan
           else if (this.imgColour[y][x][0] > 230 &&
           this.imgColour[y][x][1] < 200 && this.imagColour[y][x][1] >= 180 &&
           this.imgColour[y][x][2] < 180 && this.imgColour[y][x][2] >= 160) {
-            blocknum[y].push(2);
+            blocknum[y].push(4);
           }
 
           //Brown
           else if (this.imgColour[y][x][0] < 170 && this.imgColour[y][x][0] >= 100 &&
           this.imgColour[y][x][1] < 100 && this.imgColour[y][x][1] >= 60 &&
           this.imgColour[y][x][2] < 60 && this.imgColour[y][x][2] >= 0) {
-            blocknum[y].push(3);
+            blocknum[y].push(5);
           }
         }
       }
@@ -590,7 +591,94 @@ class Skzoo extends Gridcat {
   }
 
   displayGrid() {
-    super.displayGrid();
+    for (let y = 0; y < this.GRID_SIZE; y++) {
+      for (let x = 0; x < this.GRID_SIZE; x++) {
+        if (this.GRID_SIZE >= 40) {
+          //block colour
+          fill("lightblue");
+          rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+  
+          if (this.blockNumber[y][x] < 10) {
+            //fill in grid with numbers
+            fill("black");
+            textAlign(CENTER, CENTER);
+            text(this.blockNumber[y][x], x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+          else {
+            //colour/fill in cells
+            if (this.blockNumber[y][x] === 10) {
+              fill("white");
+            }
+            else if (this.blockNumber[y][x] === 12) {
+              fill("pink");
+            }
+            else if (this.blockNumber[y][x] === 22) {
+              fill("black");
+            }
+
+            //colours specific to each image
+            if (state1 === "wolfchan"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("lightgrey");
+              }
+              else if (this.blockNumber[y][x] === 44) {
+                fill("grey");
+              }
+            }
+            if (state1 === "leebit" || state1 === "jiniret"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("lightgrey");
+              }
+            }
+            if (state1 === "dwaekki"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("darkpink");
+              }
+            }
+            if (state1 === "quokka"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("lightbrown");
+              }
+              else if (this.blockNumber[y][x] === 44) {
+                fill("brown");
+              }
+            }
+            if (state1 === "bbokari"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("lightyellow");
+              }
+              else if (this.blockNumber[y][x] === 44) {
+                fill("yellow");
+              }
+            }
+            if (state1 === "puppym"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("tan");
+              }
+              else if (this.blockNumber[y][x] === 44) {
+                fill("lighttan");
+              }
+            }
+            if (state1 === "foxiny"){
+              if (this.blockNumber[y][x] === 33) {
+                fill("tan");
+              }
+              else if (this.blockNumber[y][x] === 44) {
+                fill("lighttan");
+              }
+              else if (this.blockNumber[y][x] === 55) {
+                fill("brown");
+              }
+            }
+            rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+          }
+        }
+  
+        else {
+          rect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        }
+      }
+    }
   }
 }
 
@@ -619,7 +707,6 @@ function draw() {
     catImage.displayGrid();
   }
   if (state === "skzoo"){
-    setupImage();
     skzoo.displayGrid();
   }
   if (state === "end"){
@@ -629,31 +716,42 @@ function draw() {
 
 //change colour of fill base on key
 function keyTyped() {
+  //cat
   if (state === "cat"){
     catImageKeys();
   }
+  //skzoo
+  if (state === "skzoo"){
+    // skzooImageKeys();
+  }
+  //user
 }
 
-//fill in cell with colour when 
+//fill in colour and select options
 function mousePressed() {
+  //colour cat
   if (state === "cat") {
     let y = Math.floor(mouseY / catImage.cellSize);
     let x = Math.floor(mouseX / catImage.cellSize);
   
     catImage.toggleCell(x, y);   //current cell
   }
+  //colour other images
   if (state === "skzoo"){
     let y = Math.floor(mouseY / skzoo.cellSize);
     let x = Math.floor(mouseX / skzoo.cellSize);
 
     skzoo.toggleCell(x,y);
   }
+  //select stract options
   if (state === "start"){
     buttonPushed();
   }
+  //select end options
+  if (state === "start"){
+    // backToStart();
+  }
 }
-
-//display
 
 
 //set up colouring image
@@ -708,7 +806,9 @@ function setupImage() {
       skzoo = new Skzoo(foxiny);
     }
 
+    // console.log(skzoo)
     skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+    // console.log(skzoo)
       
     //set grid size
     if (height > width) {
@@ -717,9 +817,9 @@ function setupImage() {
     else {
       skzoo.cellSize = height / skzoo.GRID_SIZE;
     }
-    
     //display animal
     if (skzoo.GRID_SIZE >= 40) {
+      // console.log('here')
       skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -734,47 +834,47 @@ function setupImage() {
 //start screen
 function startScreen() {
   if (state === "start"){
-    radius = width/15;
-    let w = (width-radius)/5;
-    change1 = w-radius;
-    change2 = w*2-radius;
-    change3 = w*3-radius;
-    change4 = w*4-radius;
-    change5 = w*5-radius;
+    diameter = width/15;
+    let w = (width-diameter)/5;
+    change1 = w-diameter;
+    change2 = w*2-diameter;
+    change3 = w*3-diameter;
+    change4 = w*4-diameter;
+    change5 = w*5-diameter;
     h = height/4;
     h1 = h*3;
     background("white");
     fill("lightblue");
 
     //cat
-    circle(change1, h , radius);
+    circle(change1, h , diameter);
 
     //wolf
-    circle(change2, h, radius);
+    circle(change2, h, diameter);
 
     //rabbit
-    circle(change3, h, radius);
+    circle(change3, h, diameter);
 
     //pig-rabbit
-    circle(change4, h, radius);
+    circle(change4, h, diameter);
 
     //ferret
-    circle(change5, h, radius);
+    circle(change5, h, diameter);
 
     //quokka
-    circle(change1, h*3, radius);
+    circle(change1, h*3, diameter);
  
     //chick
-    circle(change2, h*3, radius);
+    circle(change2, h*3, diameter);
 
     //puppy
-    circle(change3, h*3, radius);
+    circle(change3, h*3, diameter);
 
     //fox
-    circle(change4, h*3, radius);
+    circle(change4, h*3, diameter);
 
     //grid
-    circle(change5, h*3, radius);
+    circle(change5, h*3, diameter);
   }
 }
 
@@ -805,53 +905,94 @@ function catImageKeys() {
   console.log(catImage.colour);
 }
 
+// button pushed change state and create coloring image
 function buttonPushed() {
-  if (mouseX > change1-radius/2 && mouseX < change1+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    //change state
     state = "cat";
+
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change1-radius/2 && mouseX < change1+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "wolfchan";
+
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX > change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "leebit";
+
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change2-radius/2 && mouseX < change2+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX > change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "dwaekki";
+
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX > change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "jiniret";
+    
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change3-radius/2 && mouseX < change3+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX > change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "quokka";
+    
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX > change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "bbokari";
+    
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change4-radius/2 && mouseX < change4+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX > change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "puppym";
+    
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h+radius/2 && mouseY > h-radius/2) {
+  else if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
+    //change state
     state = "skzoo";
     state1 = "foxiny";
+    
+    //set up image
+    background("white");
     setupImage();
   }
-  else if (mouseX < change5-radius/2 && mouseX < change5+radius/2 && mouseY < h1+radius/2 && mouseY > h1-radius/2) {
+  else if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
+    //change state
     state = "userimage";
+    
+    //set up image
+    background("white");
     setupImage();
   }
   return state;
