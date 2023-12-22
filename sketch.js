@@ -5,7 +5,6 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-//line 459 in  wolfchan class throws an error 
 
 //set variables
 let state = "start";
@@ -722,7 +721,7 @@ function keyTyped() {
   }
   //skzoo
   if (state === "skzoo"){
-    // skzooImageKeys();
+    skzooImageKeys();
   }
   //user
 }
@@ -806,9 +805,7 @@ function setupImage() {
       skzoo = new Skzoo(foxiny);
     }
 
-    // console.log(skzoo)
     skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
-    // console.log(skzoo)
       
     //set grid size
     if (height > width) {
@@ -886,7 +883,6 @@ function endScreen() {
 
 //keys for cat
 function catImageKeys() {
-  console.log("here");
   if (key === "0") {
     catImage.colour = 0;
   }
@@ -903,6 +899,28 @@ function catImageKeys() {
     catImage.colour = 4;
   }
   console.log(catImage.colour);
+}
+
+//keys for skzoo
+function skzooImageKeys() {
+  if (key === "0") {
+    skzoo.colour = 0;
+  }
+  else if (key === "1") {
+    skzoo.colour = 1;
+  }
+  else if (key === "2") {
+    skzoo.colour = 2;
+  }
+  else if (key === "3") {
+    skzoo.colour = 3;
+  }
+  else if (key === "4") {
+    skzoo.colour = 4;
+  }
+  else if (key === "5") {
+    skzoo.colour = 5;
+  }
 }
 
 // button pushed change state and create coloring image
