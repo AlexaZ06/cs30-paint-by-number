@@ -437,7 +437,7 @@ class Grid extends Gridcat {
 
 class Skzoo extends Gridcat {
   constructor(img) {
-    super(img);
+   super(img);
   }
 
   //create grid
@@ -456,21 +456,10 @@ class Skzoo extends Gridcat {
     for (let y = 0; y < rows; y++) {
       blocknum.push([]);
       for (let x = 0; x < cols; x++) {
-        console.log(this);
         //white
-        if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+        if (this.imgColour[y][x][0] >= 20 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
           || this.imgColour[y][x][3] <= 40) {
           blocknum[y].push(0);
-        }
-  
-        //pink 
-        else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
-          blocknum[y].push(1);
-        }
-        //black
-        else if (this.imgColour[y][x][0] <= 40 && this.imgColour[y][x][1] <= 40 && this.imgColour[y][x][2] <= 40
-          || this.imgColour[y][x][3] >= 200) {
-          blocknum[y].push(2);
         }
 
         //colours for specific images
@@ -492,9 +481,9 @@ class Skzoo extends Gridcat {
 
         else if (state1 === "leebit" || state1 === "jiniret"){
           //light grey
-          if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
-            this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
-            this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
+          if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 120 &&
+            this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 120 &&
+            this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 120) {
             blocknum[y].push(3);
           }
         }
@@ -511,9 +500,7 @@ class Skzoo extends Gridcat {
 
         else if (state1 === "quokka"){
           //light brown
-          if (this.imgColour[y][x][0] < 200 && this.imgColour[y][x][0] >= 170 &&
-          this.imgColour[y][x][1] < 170 && this.imgColour[y][x][1] >= 140 &&
-          this.imgColour[y][x][2] < 140 && this.imgColour[y][x][2] >= 120) {
+          if (this.imgColour[y][x][0] > 200 && this.imgColour[y][x][1] > 140 && this.imgColour[y][x][2] < 100) {
             blocknum[y].push(3);
           }
 
@@ -581,6 +568,15 @@ class Skzoo extends Gridcat {
           }
         }
       }
+      //pink 
+      if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
+        blocknum[y].push(1);
+      }
+      //black
+      else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+        || this.imgColour[y][x][3] >= 150) {
+        blocknum[y].push(2);
+      }
     }
     return blocknum;
   }
@@ -616,6 +612,7 @@ class Skzoo extends Gridcat {
             }
 
             //colours specific to each image
+            //wolfchan
             if (state1 === "wolfchan"){
               if (this.blockNumber[y][x] === 33) {
                 fill("lightgrey");
@@ -624,16 +621,19 @@ class Skzoo extends Gridcat {
                 fill("grey");
               }
             }
+            //leebit and jiniret
             if (state1 === "leebit" || state1 === "jiniret"){
               if (this.blockNumber[y][x] === 33) {
                 fill("lightgrey");
               }
             }
+            //dwaekki
             if (state1 === "dwaekki"){
               if (this.blockNumber[y][x] === 33) {
                 fill("darkpink");
               }
             }
+            //quokka
             if (state1 === "quokka"){
               if (this.blockNumber[y][x] === 33) {
                 fill("lightbrown");
@@ -642,6 +642,7 @@ class Skzoo extends Gridcat {
                 fill("brown");
               }
             }
+            //bbokari
             if (state1 === "bbokari"){
               if (this.blockNumber[y][x] === 33) {
                 fill("lightyellow");
@@ -650,6 +651,7 @@ class Skzoo extends Gridcat {
                 fill("yellow");
               }
             }
+            //puppym
             if (state1 === "puppym"){
               if (this.blockNumber[y][x] === 33) {
                 fill("tan");
@@ -658,6 +660,7 @@ class Skzoo extends Gridcat {
                 fill("lighttan");
               }
             }
+            //foxiny
             if (state1 === "foxiny"){
               if (this.blockNumber[y][x] === 33) {
                 fill("tan");
@@ -747,7 +750,7 @@ function mousePressed() {
     buttonPushed();
   }
   //select end options
-  if (state === "start"){
+  if (state === "end"){
     // backToStart();
   }
 }
@@ -789,7 +792,7 @@ function setupImage() {
     else if (state1 === "dwaekki"){
       skzoo = new Skzoo(dwaekki);
     }
-    else if (state1 === "jineret"){
+    else if (state1 === "jiniret"){
       skzoo = new Skzoo(jiniret);
     }
     else if (state1 === "quokka"){
@@ -816,7 +819,6 @@ function setupImage() {
     }
     //display animal
     if (skzoo.GRID_SIZE >= 40) {
-      // console.log('here')
       skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -898,7 +900,6 @@ function catImageKeys() {
   else if (key === "4") {
     catImage.colour = 4;
   }
-  console.log(catImage.colour);
 }
 
 //keys for skzoo
