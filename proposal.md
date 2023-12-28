@@ -3,14 +3,14 @@
 My project will be creating a paint/colour by number with images of my choice and if I have time I would like to be able to have the person upload an image themselves and colour in that image.
 
 ## Need to Have List
-- Start screen/screen with images to choose to colour
-- Multiple images (at least 8)
+- Start screen/screen with images to choose to colour✓/2
+- Multiple images (at least 8)✓
 - End screen
-- Image pixalated in grid
-- Click to change colour of grid on only the correct bricks
-- Identify colours and assign them to keys or maybe make buttons with the colours (should cover all colours)
+- Image pixalated in grid✓
+- Click to change colour of grid on only the correct bricks✓
+- Identify colours and assign them to keys or maybe make buttons with the colours (should cover all colours)✓
 - Center canvas in screen
-- Assign numbers to colours (should account for any colour)
+- Assign numbers to colours (should account for any colour)✓/2
 - Flood fill to make colouring faster
 - Music that coresponds to the image or you can choose a song to play
 

@@ -457,7 +457,7 @@ class Skzoo extends Gridcat {
       blocknum.push([]);
       for (let x = 0; x < cols; x++) {
         //white
-        if (this.imgColour[y][x][0] >= 20 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+        if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
           || this.imgColour[y][x][3] <= 40) {
           blocknum[y].push(0);
         }
@@ -465,9 +465,9 @@ class Skzoo extends Gridcat {
         //colours for specific images
         if (state1 === "wolfchan"){
           //light grey
-          if (this.imgColour[y][x][0] < 210 && this.imgColour[y][x][0] >= 140 &&
-            this.imgColour[y][x][1] < 210 && this.imgColour[y][x][1] >= 140 &&
-            this.imgColour[y][x][2] < 210 && this.imgColour[y][x][2] >= 140) {
+          if (this.imgColour[y][x][0] < 230 && this.imgColour[y][x][0] >= 130 &&
+            this.imgColour[y][x][1] < 230 && this.imgColour[y][x][1] >= 130 &&
+            this.imgColour[y][x][2] < 230 && this.imgColour[y][x][2] >= 130) {
             blocknum[y].push(3);
           }
     
@@ -521,10 +521,7 @@ class Skzoo extends Gridcat {
           }
 
           //yellow
-          else if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 210 &&
-          this.imgColour[y][x][0] > this.imagColour[y][x][2] &&
-          this.imgColour[y][x][1] > this.imgColour[y][x][2] &&
-          this.imgColour[y][x][2] < 160) {
+          else if (this.imgColour[y][x][0] > 200 && this.imgColour[y][x][1] > 160 && this.imgColour[y][x][2] > 80) {
             blocknum[y].push(4);
           }
         }
@@ -536,28 +533,14 @@ class Skzoo extends Gridcat {
           this.imgColour[y][x][2] < 150 && this.imgColour[y][x][2] >= 130) {
             blocknum[y].push(3);
           }
-
-          //light tan
-          else if (this.imgColour[y][x][0] > 230 &&
-          this.imgColour[y][x][1] < 200 && this.imagColour[y][x][1] >= 180 &&
-          this.imgColour[y][x][2] < 180 && this.imgColour[y][x][2] >= 160) {
-            blocknum[y].push(4);
-          }
         }
 
-        else{
+        else if (state1 === "foxiny") {
         //tan
           if (this.imgColour[y][x][0] > 200 &&
           this.imgColour[y][x][1] < 190 && this.imgColour[y][x][1] >= 150 &&
           this.imgColour[y][x][2] < 150 && this.imgColour[y][x][2] >= 130) {
             blocknum[y].push(3);
-          }
-
-          //light tan
-          else if (this.imgColour[y][x][0] > 230 &&
-          this.imgColour[y][x][1] < 200 && this.imagColour[y][x][1] >= 180 &&
-          this.imgColour[y][x][2] < 180 && this.imgColour[y][x][2] >= 160) {
-            blocknum[y].push(4);
           }
 
           //Brown
@@ -567,15 +550,16 @@ class Skzoo extends Gridcat {
             blocknum[y].push(5);
           }
         }
-      }
-      //pink 
-      if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
-        blocknum[y].push(1);
-      }
-      //black
-      else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-        || this.imgColour[y][x][3] >= 150) {
-        blocknum[y].push(2);
+        //pink 
+        else if (this.imgColour[y][x][0] > this.imgColour[y][x][1] && this.imgColour[y][x][0] > this.imgColour[y][x][2]) {
+          blocknum[y].push(1);
+        }
+
+        //black
+        else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                || this.imgColour[y][x][3] >= 100) {
+          blocknum[y].push(2);
+        }
       }
     }
     return blocknum;
