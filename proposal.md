@@ -10,7 +10,7 @@ My project will be creating a paint/colour by number with images of my choice an
 - Click to change colour of grid on only the correct bricks✓
 - Identify colours and assign them to keys or maybe make buttons with the colours (should cover all colours)✓
 - Center canvas in screen
-- Assign numbers to colours (should account for any colour)✓/2
+- Assign numbers to colours (should account for any colour)✓
 - Flood fill to make colouring faster
 - Music that coresponds to the image or you can choose a song to play
 

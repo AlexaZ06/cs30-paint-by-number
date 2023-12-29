@@ -456,136 +456,142 @@ class Skzoo extends Gridcat {
     for (let y = 0; y < rows; y++) {
       blocknum.push([]);
       for (let x = 0; x < cols; x++) {
-        //white
-        if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
-          || this.imgColour[y][x][3] <= 40) {
-          blocknum[y].push(0);
-        }
-
-        //colours for specific images
-        else if (state1 === "wolfchan"){
-          //light grey
-          if (this.imgColour[y][x][0] < 230 && this.imgColour[y][x][0] >= 130 &&
-            this.imgColour[y][x][1] < 230 && this.imgColour[y][x][1] >= 130 &&
-            this.imgColour[y][x][2] < 230 && this.imgColour[y][x][2] >= 130) {
-            blocknum[y].push(1);
+        //white then fill in image
+        if (state1 !== "foxiny"){
+          //white
+          if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+            || this.imgColour[y][x][3] < 40) {
+            blocknum[y].push(0);
           }
-    
-          //dark grey
-          if (this.imgColour[y][x][0] <= 200 && this.imgColour[y][x][0] > 10 &&
-            this.imgColour[y][x][1] <= 200 && this.imgColour[y][x][1] > 10 &&
-            this.imgColour[y][x][2] <= 200 && this.imgColour[y][x][2] > 10) {
-            blocknum[y].push(2);
-          }
-        }
-
-        else if (state1 === "leebit"){
-          //light grey
-          if (this.imgColour[y][x][0] < 220 && this.imgColour[y][x][0] >= 100 &&
-            this.imgColour[y][x][1] < 220 && this.imgColour[y][x][1] >= 100 &&
-            this.imgColour[y][x][2] < 220 && this.imgColour[y][x][2] >= 100) {
-            blocknum[y].push(1);
-          }
-
-          //pink 
-          else if (this.imgColour[y][x][0] > 230 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 180) {
-          blocknum[y].push(2);
-          }
-
-          //black
-          else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-                  || this.imgColour[y][x][3] >= 200) {
-            blocknum[y].push(3);
-          }
-        }
-
-        else if (state1 === "dwaekki"){
-          //pink 
-          if (this.imgColour[y][x][0] > 150 && this.imgColour[y][x][1] > 150 && this.imgColour[y][x][2] > 75) {
-            blocknum[y].push(1);
-          }
-          
-          //black
-          else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-                  || this.imgColour[y][x][3] >= 100) {
-            blocknum[y].push(2);
-          }
-        }
-
-        else if (state1 === "jiniret"){
-          //pink 
-          if (this.imgColour[y][x][0] > 240 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 195) {
-          blocknum[y].push(1);
-          }
-
-          //black
-          else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-                  || this.imgColour[y][x][3] >= 200) {
-            blocknum[y].push(2);
-          }
-        }
-
-        else if (state1 === "quokka"){
-          //light brown
-          if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 115 && this.imgColour[y][x][2] > 70) {
-            blocknum[y].push(1);
-          }
-
-          //brown
-          else if (this.imgColour[y][x][0] < 245 && this.imgColour[y][x][1] < 155 && this.imgColour[y][x][2] > 50) {
-            blocknum[y].push(2);
-          }
-
-          //black
-          else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-                  || this.imgColour[y][x][3] >= 200) {
-            blocknum[y].push(3);
-          }
-        }
-
-        else if (state1 === "bbokari"){
-          //yellow
-          if (this.imgColour[y][x][0] > 100 && this.imgColour[y][x][1] > 80 && this.imgColour[y][x][2] > 40) {
-            blocknum[y].push(1);
-          }
-          
-          //black
-          else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
-                   || this.imgColour[y][x][3] >= 200) {
-            blocknum[y].push(2);
-          }
-        }
-
-        else if (state1 === "puppym"){
-          //tan
-          if (this.imgColour[y][x][0] > 250 && this.imgColour[y][x][1] > 200 && this.imgColour[y][x][2] > 170) {
-            blocknum[y].push(1);
-          }
-          
-          //brown
-          else if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 190 && this.imgColour[y][x][2] > 170
-                   || this.imgColour[y][x][3] >= 200) {
+  
+          //colours for specific images
+          else if (state1 === "wolfchan"){
+            //light grey
+            if (this.imgColour[y][x][0] > 142 && this.imgColour[y][x][1] > 167 && this.imgColour[y][x][2] > 167) {
+              blocknum[y].push(1);
+            }
+      
+            //dark grey
+            else {
               blocknum[y].push(2);
+            }
+          }
+  
+          else if (state1 === "leebit"){
+            //light grey
+            if (this.imgColour[y][x][0] < 220 && this.imgColour[y][x][0] >= 100 &&
+              this.imgColour[y][x][1] < 220 && this.imgColour[y][x][1] >= 100 &&
+              this.imgColour[y][x][2] < 220 && this.imgColour[y][x][2] >= 100) {
+              blocknum[y].push(1);
+            }
+  
+            //pink 
+            else if (this.imgColour[y][x][0] > 230 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 180) {
+            blocknum[y].push(2);
+            }
+  
+            //black
+            else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                    || this.imgColour[y][x][3] >= 200) {
+              blocknum[y].push(3);
+            }
+          }
+  
+          else if (state1 === "dwaekki"){
+            //pink 
+            if (this.imgColour[y][x][0] > 150 && this.imgColour[y][x][1] > 150 && this.imgColour[y][x][2] > 75) {
+              blocknum[y].push(1);
+            }
+            
+            //black
+            else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                    || this.imgColour[y][x][3] >= 100) {
+              blocknum[y].push(2);
+            }
+          }
+  
+          else if (state1 === "jiniret"){
+            //pink 
+            if (this.imgColour[y][x][0] > 240 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 195) {
+            blocknum[y].push(1);
+            }
+  
+            //black
+            else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                    || this.imgColour[y][x][3] >= 200) {
+              blocknum[y].push(2);
+            }
+          }
+  
+          else if (state1 === "quokka"){
+            //light brown
+            if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 115 && this.imgColour[y][x][2] > 70) {
+              blocknum[y].push(1);
+            }
+  
+            //brown
+            else if (this.imgColour[y][x][0] < 245 && this.imgColour[y][x][1] < 155 && this.imgColour[y][x][2] > 50) {
+              blocknum[y].push(2);
+            }
+  
+            //black
+            else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                    || this.imgColour[y][x][3] >= 200) {
+              blocknum[y].push(3);
+            }
+          }
+  
+          else if (state1 === "bbokari"){
+            //yellow
+            if (this.imgColour[y][x][0] > 100 && this.imgColour[y][x][1] > 80 && this.imgColour[y][x][2] > 40) {
+              blocknum[y].push(1);
+            }
+            
+            //black
+            else if (this.imgColour[y][x][0] <= 50 && this.imgColour[y][x][1] <= 50 && this.imgColour[y][x][2] <= 50
+                     || this.imgColour[y][x][3] >= 200) {
+              blocknum[y].push(2);
+            }
+          }
+  
+          else if (state1 === "puppym"){
+            //tan
+            if (this.imgColour[y][x][0] > 250 && this.imgColour[y][x][1] > 200 && this.imgColour[y][x][2] > 170) {
+              blocknum[y].push(1);
+            }
+            
+            //brown
+            else if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 190 && this.imgColour[y][x][2] > 170
+                     || this.imgColour[y][x][3] >= 200) {
+                blocknum[y].push(2);
+            }
           }
         }
 
+        //requires white to be looked for after tan due to colors being similar
         else if (state1 === "foxiny") {
           //tan
-          if (this.imgColour[y][x][0] > 200 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 160) {
+          if (this.imgColour[y][x][0] > 235 && this.imgColour[y][x][1] > 180 && this.imgColour[y][x][2] > 175) {
             blocknum[y].push(1);
           }
 
-          //Brown
-          else if (this.imgColour[y][x][0] < 170 && this.imgColour[y][x][0] >= 100 &&
-          this.imgColour[y][x][1] < 100 && this.imgColour[y][x][1] >= 60 &&
-          this.imgColour[y][x][2] < 60 && this.imgColour[y][x][2] >= 0) {
+          else if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
+            || this.imgColour[y][x][3] < 40) {
+            blocknum[y].push(0);
+          }
+
+          //brown
+          else if (this.imgColour[y][x][0] >= 230 && this.imgColour[y][x][1] >=220 && this.imgColour[y][x][2] >= 210
+                   || this.imgColour[y][x][3] >= 200) {
             blocknum[y].push(2);
           }
 
-          if (this.imgColour[y][x][0] > 240 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 195) {
-            blocknum[y].push(3);
-            }  
+          //cover missing cases
+          else{
+            blocknum[y].push(1);
+          }
         }
+        
       }
     }
     return blocknum;
@@ -946,12 +952,6 @@ function skzooImageKeys() {
   }
   else if (key === "3") {
     skzoo.colour = 3;
-  }
-  else if (key === "4") {
-    skzoo.colour = 4;
-  }
-  else if (key === "5") {
-    skzoo.colour = 5;
   }
 }
 
