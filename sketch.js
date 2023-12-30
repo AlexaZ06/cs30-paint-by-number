@@ -3,7 +3,8 @@
 // Date
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/ (for floodfill)
+// - Erika helped get flood fill to work
 
 
 //set variables
@@ -31,26 +32,6 @@ let bbokari;
 let puppym;
 let foxiny;
 
-//ignore
-// if (state === "cat") {
-// }
-// else if (state === "wolfchan"){
-// }
-// else if (state === "leebit"){
-// }
-// else if (state === "dwaekki"){
-// }
-// else if (state === "jiniret"){
-// }
-// else if (state === "quokka"){
-// }
-// else if (state === "bbokari"){
-// }
-// else if (state === "puppym"){   
-// }
-// else if (state === "foxiny"){
-// }
-
 //create parent class using code from grid array game
 class Gridcat {
   constructor (img){
@@ -61,6 +42,7 @@ class Gridcat {
     this.imgColour;
     this.blockNumber;
     this.colour;
+    this.stateC;
   }
 
   //create grid
@@ -170,6 +152,7 @@ class Gridcat {
         }
       }
     }
+    return this.blockNumber[y][x];
   }
 
   //show grid
@@ -764,6 +747,9 @@ function keyTyped() {
     skzooImageKeys();
   }
   //user
+  if (state === "userImage"){
+    userImageKeys();
+  }
 }
 
 //fill in colour and select options
@@ -772,8 +758,13 @@ function mousePressed() {
   if (state === "cat") {
     let y = Math.floor(mouseY / catImage.cellSize);
     let x = Math.floor(mouseX / catImage.cellSize);
-  
-    catImage.toggleCell(x, y);   //current cell
+
+    if (mouseButton === CENTER){
+      floodFill(x, y, catImage.displayGrid, catImage.stateC);
+    }
+    else{
+      catImage.toggleCell(x, y);   //current cell
+    }
   }
   //colour other images
   if (state === "skzoo"){
@@ -917,6 +908,26 @@ function startScreen() {
 function endScreen() {
   if (state === "end"){
     background("black");
+    if (state === "cat"){
+      catImage.displayGrid();
+    }
+    if (state === "skzoo"){
+      skzoo.displayGrid();
+    }
+  }
+}
+
+//check done
+function doneColoring() {
+  if (state === "cat"){
+    for (let y = 0; y < catImage.GRID_SIZE; y++){
+      for (let x = 0; x < catImage.GRID_SIZE; x++){
+      
+      }
+    }
+  }
+  if (state === "skzoo"){
+    skzoo.displayGrid();
   }
 }
 
@@ -957,6 +968,7 @@ function skzooImageKeys() {
 
 // button pushed change state and create coloring image
 function buttonPushed() {
+  //cat
   if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     //change state
     state = "cat";
@@ -965,6 +977,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //wolf
   else if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
     //change state
     state = "skzoo";
@@ -974,6 +987,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //rabbit
   else if (mouseX > change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     //change state
     state = "skzoo";
@@ -983,6 +997,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //pig-rabbit
   else if (mouseX > change2-diameter/2 && mouseX < change2+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
     //change state
     state = "skzoo";
@@ -992,6 +1007,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //ferret
   else if (mouseX > change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     //change state
     state = "skzoo";
@@ -1001,6 +1017,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //quokka
   else if (mouseX > change3-diameter/2 && mouseX < change3+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
     //change state
     state = "skzoo";
@@ -1010,6 +1027,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //chick
   else if (mouseX > change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     //change state
     state = "skzoo";
@@ -1019,6 +1037,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //puppy
   else if (mouseX > change4-diameter/2 && mouseX < change4+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
     //change state
     state = "skzoo";
@@ -1028,6 +1047,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //fennec fox
   else if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
     //change state
     state = "skzoo";
@@ -1037,6 +1057,7 @@ function buttonPushed() {
     background("white");
     setupImage();
   }
+  //user
   else if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h1+diameter/2 && mouseY > h1-diameter/2) {
     //change state
     state = "userimage";
@@ -1046,4 +1067,33 @@ function buttonPushed() {
     setupImage();
   }
   return state;
+}
+
+//floodfill
+//opperation
+function floodFill(x, y, grid, stateC) {
+
+  //base case
+  if (x<0 || x>= grid.GRID_SIZE || y<0 || y >= grid.GRID_SIZE || grid[y][x] !== stateC){
+    return;
+  }
+
+  else{
+    //look at neighbours
+    //north
+    floodFillTill(x, y - 1, grid, stateC);
+    //south
+    floodFillTill(x, y + 1, grid, stateC);
+    //east
+    floodFillTill(x + 1, y, grid, stateC);
+    //west
+    floodFillTill(x - 1, y, grid, stateC);
+  }
+}
+
+//call
+function floodFillStart(x, y, grid, stateC) {
+  if (grid[y][x] !== stateC){
+    floodFill(x, y, grid, stateC);  
+  } 
 }
