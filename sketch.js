@@ -5,7 +5,13 @@
 // Extra for Experts:
 // - https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/ (for floodfill)
 // - Erika helped get flood fill to work
-
+// - https://p5js.org/reference/#/p5/mouseButton (mousewheel)
+// - Music from:
+//  - You(=I) from https://youtu.be/c0QEK8ZH5DU?si=h1i1_XcVhLATnNEg
+//  - Lemon Cake from https://youtu.be/oN8OI28Ne-w?si=iEFznFWiCbbW3DE0
+//  - Boba date from https://youtu.be/a3ruJFU5C6g?si=N8ulGygC4PcLOOKd
+//  - 'In Dreamland' from https://youtu.be/DSWYAclv2I8?si=RrVYcKdtSv-Pa62-
+// **Images not mine, credit to their owners**
 
 //set variables
 let state = "start";
@@ -31,6 +37,12 @@ let quokka;
 let bbokari;
 let puppym;
 let foxiny;
+
+//music
+let startMusic;
+let catMusic;
+let skzooMusic;
+let userMusic;
 
 //create parent class using code from grid array game
 class Gridcat {
@@ -152,7 +164,45 @@ class Gridcat {
         }
       }
     }
-    return this.blockNumber[y][x];
+  }
+  
+  //floodfill
+  //opperation
+  floodFill(x, y) {
+    let rows = this.grid.length;
+    let cols = this.grid[x].length;
+    //base case
+    if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
+      return;
+    }
+  
+    else {
+      //look at neighbours
+      //north
+      this.floodFill(x, y - 1);
+      //south
+      this.floodFill(x, y + 1);
+      //east
+      this.floodFill(x + 1, y);
+      //west
+      this.floodFill(x - 1, y);
+    }
+  }
+  
+  //call
+  floodFillStart(x, y) {
+    if (this.blockNumber[x][y] === 0) {
+      this.stateC = this.blockNumber[x][y] + 10;
+      if (this.blockNumber[x][y] !== this.stateC) {
+        this.floodFill(x, y);  
+      } 
+    }
+    else {
+      this.stateC = this.blockNumber[x][y] + (10*this.blockNumber[x][y]);
+      if (this.blockNumber[x][y] !== this.stateC) {
+        this.floodFill(x, y);  
+      } 
+    }
   }
 
   //show grid
@@ -168,6 +218,7 @@ class Gridcat {
             //fill in grid with numbers
             fill("black");
             textAlign(CENTER, CENTER);
+            textSize(this.cellSize/1.75);
             text(this.blockNumber[y][x], x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
           }
           else {
@@ -596,6 +647,7 @@ class Skzoo extends Gridcat {
             //fill in grid with numbers
             fill("black");
             textAlign(CENTER, CENTER);
+            textSize(this.cellSize/1.75);
             text(this.blockNumber[y][x], x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
           }
           else {
@@ -702,10 +754,21 @@ class Skzoo extends Gridcat {
       }
     }
   }
+
+  //floodfill
+  floodFill (x,y) {
+    super.floodFill(x,y);
+  }
+
+  //activation
+  floodFillStart (x,y) {
+    super.floodFillStart(x,y);
+  }
 }
 
 //load image to colour
 function preload() {
+  //load images
   cat = loadImage("assets/cat.png");
   wolfChan = loadImage("assets/WolfChan.png");
   leeBit = loadImage("assets/Leebit.png");
@@ -715,6 +778,12 @@ function preload() {
   bbokari = loadImage("assets/Bbokari.png");
   puppym = loadImage("assets/PuppyM.png");
   foxiny = loadImage("assets/Foxiny.png");
+
+  //load sound
+  startMusic = loadSound("assets/In Dreamland.mp3");
+  catMusic = loadSound("assets/boba date.mp3");
+  skzooMusic = loadSound("assets/You (=I).mp3");
+  userMusic = loadSound("assets/lemon cake.mp3");
 }
 
 function setup() {
@@ -747,7 +816,7 @@ function keyTyped() {
     skzooImageKeys();
   }
   //user
-  if (state === "userImage"){
+  if (state === "userimage"){
     userImageKeys();
   }
 }
@@ -760,7 +829,7 @@ function mousePressed() {
     let x = Math.floor(mouseX / catImage.cellSize);
 
     if (mouseButton === CENTER){
-      floodFill(x, y, catImage.displayGrid, catImage.stateC);
+      catImage.floodFillStart(x, y);
     }
     else{
       catImage.toggleCell(x, y);   //current cell
@@ -779,8 +848,9 @@ function mousePressed() {
   }
   //select end options
   if (state === "end"){
-    // backToStart();
+    backToStart();
   }
+  music();
 }
 
 
@@ -870,38 +940,51 @@ function startScreen() {
     change5 = w*5-diameter;
     h = height/4;
     h1 = h*3;
+    let font = diameter/2;
+    let font1 =diameter/6;
     background("white");
     fill("lightblue");
+    imageMode(CENTER);
 
     //cat
-    circle(change1, h , diameter);
+    image(cat, change1, h, diameter, diameter);
 
     //wolf
-    circle(change2, h, diameter);
+    image(wolfChan, change1, h1, diameter, diameter);
 
     //rabbit
-    circle(change3, h, diameter);
+    image(leeBit, change2, h, diameter, diameter);
 
     //pig-rabbit
-    circle(change4, h, diameter);
+    image(dwaekki, change2, h1, diameter, diameter);
 
     //ferret
-    circle(change5, h, diameter);
+    image(jiniret, change3, h, diameter, diameter);
 
     //quokka
-    circle(change1, h*3, diameter);
+    image(quokka, change3, h1, diameter, diameter);
  
     //chick
-    circle(change2, h*3, diameter);
+    image(bbokari, change4, h, diameter, diameter);
 
     //puppy
-    circle(change3, h*3, diameter);
+    image(puppym, change4, h1, diameter, diameter);
 
     //fox
-    circle(change4, h*3, diameter);
+    image(foxiny, change5, h, diameter, diameter);
 
     //grid
-    circle(change5, h*3, diameter);
+    circle(change5, h1, diameter);
+    textAlign(CENTER,CENTER);
+    textSize(font1);
+    fill("black");
+    text("Your Image", change5, h1);
+
+    //text
+    textAlign(CENTER, CENTER);
+    textSize(font);
+    fill("black");
+    text("Choose an image to colour.", width/2, height/2,)
   }
 }
 
@@ -910,24 +993,18 @@ function endScreen() {
     background("black");
     if (state === "cat"){
       catImage.displayGrid();
+      rect(change5, h, diameter, diameter);
+      fill("black");
+      textAlign(CENTER, CENTER);
+      text("start", change5, h);
     }
     if (state === "skzoo"){
       skzoo.displayGrid();
+      rect(change5, h, diameter, diameter);
+      fill("black");
+      textAlign(CENTER, CENTER);
+      text("start", change5, h);
     }
-  }
-}
-
-//check done
-function doneColoring() {
-  if (state === "cat"){
-    for (let y = 0; y < catImage.GRID_SIZE; y++){
-      for (let x = 0; x < catImage.GRID_SIZE; x++){
-      
-      }
-    }
-  }
-  if (state === "skzoo"){
-    skzoo.displayGrid();
   }
 }
 
@@ -1069,31 +1146,65 @@ function buttonPushed() {
   return state;
 }
 
-//floodfill
-//opperation
-function floodFill(x, y, grid, stateC) {
-
-  //base case
-  if (x<0 || x>= grid.GRID_SIZE || y<0 || y >= grid.GRID_SIZE || grid[y][x] !== stateC){
-    return;
+//check done
+function doneColoring() {
+  if (state === "cat"){
+    for (let y = 0; y < catImage.GRID_SIZE; y++){
+      for (let x = 0; x < catImage.GRID_SIZE; x++){
+        if (catImage.blockNumber[y][x] >= 10) {
+          state = "end";
+        }
+      }
+    }
   }
+  if (state === "skzoo"){
+    for (let y = 0; y < skzoo.GRID_SIZE; y++){
+      for (let x = 0; x < skzoo.GRID_SIZE; x++){
+        if (skzoo.blockNumber[y][x] >= 10) {
+          state = "end";
+        }
+      }
+    }
+  }
+  if (state = "userimage") {
 
-  else{
-    //look at neighbours
-    //north
-    floodFillTill(x, y - 1, grid, stateC);
-    //south
-    floodFillTill(x, y + 1, grid, stateC);
-    //east
-    floodFillTill(x + 1, y, grid, stateC);
-    //west
-    floodFillTill(x - 1, y, grid, stateC);
   }
 }
 
-//call
-function floodFillStart(x, y, grid, stateC) {
-  if (grid[y][x] !== stateC){
-    floodFill(x, y, grid, stateC);  
-  } 
+function backToStart() {
+  if (mouseX > change1 && mouseX < change1+diameter && mouseY < h && mouseY > h+diameter) {
+    //change state
+    state = "start";
+  }
+}
+
+function music() {
+  if (state === "start" && !startMusic.isPlaying()) {
+    catMusic.stop();
+    skzooMusic.stop();
+    userMusic.stop();
+    startMusic.setVolume(0.75);
+    startMusic.loop();
+  }
+  if (state === "cat" && !catMusic.isPlaying()) {
+    startMusic.stop();
+    skzooMusic.stop();
+    userMusic.stop();
+    catMusic.setVolume(0.75);
+    catMusic.loop();
+  }
+  if (state === "skzoo" && !skzooMusic.isPlaying()) {
+    startMusic.stop();
+    catMusic.stop();
+    userMusic.stop();
+    skzooMusic.setVolume(0.75);
+    skzooMusic.loop();
+  }
+  if (state === "userimage" && !userMusic.isPlaying()){
+    startMusic.stop();
+    catMusic.stop();
+    skzooMusic.stop();
+    userMusic.setVolume(0.75);
+    userMusic.loop();
+  }
 }
