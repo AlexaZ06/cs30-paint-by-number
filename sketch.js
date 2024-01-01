@@ -1,11 +1,15 @@
 // Paint/Colour by Number
 // Alexandra Zhu
-// Date
+// January XX 2024
 //
 // Extra for Experts:
 // - https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/ (for floodfill)
 // - Erika helped get flood fill to work
 // - https://p5js.org/reference/#/p5/mouseButton (mousewheel)
+// - centering canvas:
+//  - https://forum.gamemaker.io/index.php?threads/drawing-and-centering-grids.104164/
+//  - https://editor.p5js.org/Scatropolis/sketches/mxxNeNG9F
+//  - https://stackoverflow.com/questions/60325768/changing-the-coordinate-system-in-p5-js
 // - Music from:
 //  - You(=I) from https://youtu.be/c0QEK8ZH5DU?si=h1i1_XcVhLATnNEg
 //  - Lemon Cake from https://youtu.be/oN8OI28Ne-w?si=iEFznFWiCbbW3DE0
@@ -165,48 +169,51 @@ class Gridcat {
       }
     }
   }
-  
+ 
   //floodfill
-  //opperation
-  floodFill(x, y) {
-    let rows = this.grid.length;
-    let cols = this.grid[x].length;
-    //base case
-    if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
-      return;
-    }
-  
-    else {
-      //look at neighbours
-      //north
-      this.floodFill(x, y - 1);
-      //south
-      this.floodFill(x, y + 1);
-      //east
-      this.floodFill(x + 1, y);
-      //west
-      this.floodFill(x - 1, y);
-    }
-  }
-  
   //call
   floodFillStart(x, y) {
     if (this.blockNumber[x][y] === 0) {
       this.stateC = this.blockNumber[x][y] + 10;
       if (this.blockNumber[x][y] !== this.stateC) {
-        this.floodFill(x, y);  
+        this.floodFill(x, y, this.stateC);  
       } 
     }
     else {
       this.stateC = this.blockNumber[x][y] + (10*this.blockNumber[x][y]);
       if (this.blockNumber[x][y] !== this.stateC) {
-        this.floodFill(x, y);  
+        this.floodFill(x, y, this.stateC);  
       } 
+    }
+  }
+
+  //opperation
+  floodFill(x, y, stateC) {
+    let rows = this.grid.length;
+    let cols = this.grid[x].length;
+    //base case
+    console.log(this.blockNumber[x][y]);
+    console.log(this.stateC);
+    if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
+      return this.blockNumber[x][y] = this.stateC;
+    }
+  
+    else {
+      //look at neighbours 
+      //north
+      this.floodFill(x, y - 1, stateC);
+      //south
+      this.floodFill(x, y + 1, stateC);
+      //east
+      this.floodFill(x + 1, y, stateC);
+      //west
+      this.floodFill(x - 1, y, stateC);
     }
   }
 
   //show grid
   displayGrid() {
+    translate(windowWidth/4, 0);
     for (let y = 0; y < this.GRID_SIZE; y++) {
       for (let x = 0; x < this.GRID_SIZE; x++) {
         if (this.GRID_SIZE >= 40) {
@@ -755,14 +762,14 @@ class Skzoo extends Gridcat {
     }
   }
 
-  //floodfill
-  floodFill (x,y) {
-    super.floodFill(x,y);
-  }
-
   //activation
   floodFillStart (x,y) {
     super.floodFillStart(x,y);
+  }
+
+  //floodfill
+  floodFill (x,y) {
+    super.floodFill(x,y);
   }
 }
 
@@ -825,8 +832,8 @@ function keyTyped() {
 function mousePressed() {
   //colour cat
   if (state === "cat") {
-    let y = Math.floor(mouseY / catImage.cellSize);
-    let x = Math.floor(mouseX / catImage.cellSize);
+    let y = Math.floor(mouseY/ catImage.cellSize);
+    let x = Math.floor(wMouseX() / catImage.cellSize);
 
     if (mouseButton === CENTER){
       catImage.floodFillStart(x, y);
@@ -993,17 +1000,17 @@ function endScreen() {
     background("black");
     if (state === "cat"){
       catImage.displayGrid();
-      rect(change5, h, diameter, diameter);
+      rect(change5, h, diameter, diameter/2);
       fill("black");
       textAlign(CENTER, CENTER);
       text("start", change5, h);
     }
     if (state === "skzoo"){
       skzoo.displayGrid();
-      rect(change5, h, diameter, diameter);
+      rect(change5, h, diameter, diameter/2);
       fill("black");
       textAlign(CENTER, CENTER);
-      text("start", change5, h);
+      text("To Start", change5, h);
     }
   }
 }
@@ -1207,4 +1214,9 @@ function music() {
     userMusic.setVolume(0.75);
     userMusic.loop();
   }
+}
+
+function wMouseX() {
+  //adjust to be on grid!!!
+  return mouseX * (windowWidth / width);
 }

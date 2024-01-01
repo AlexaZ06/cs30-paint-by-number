@@ -9,10 +9,10 @@ My project will be creating a paint/colour by number with images of my choice an
 - Image pixalated in grid✓
 - Click to change colour of grid on only the correct bricks✓
 - Identify colours and assign them to keys or maybe make buttons with the colours (should cover all colours)✓
-- Center canvas in screen
+- Center canvas in screen✓/2
 - Assign numbers to colours (should account for any colour)✓
 - Flood fill to make colouring faster✓/2
-- Music that coresponds to the image✓
+- Music that coresponds to the image or you can choose music✓
 
 ## Nice to have List 
 - Traslucent colour over block of wrong colour if you click on it
