@@ -58,7 +58,7 @@ class Gridcat {
     this.imgColour;
     this.blockNumber;
     this.colour;
-    this.stateC;
+    this.stateC = 0;
   }
 
   //create grid
@@ -173,34 +173,29 @@ class Gridcat {
   //floodfill
   //call
   floodFillStart(x, y) {
-    if (this.blockNumber[x][y] === 0) {
-      this.stateC = this.blockNumber[x][y] + 10;
-      if (this.blockNumber[x][y] !== this.stateC) {
-        this.floodFill(x, y, this.stateC);  
-      } 
-    }
-    else {
-      this.stateC = this.blockNumber[x][y] + (10*this.blockNumber[x][y]);
-      if (this.blockNumber[x][y] !== this.stateC) {
-        this.floodFill(x, y, this.stateC);  
-      } 
-    }
+    console.log("here");
+    console.log(this.blockNumber[x][y]);
+    console.log(this.stateC);
+    this.stateC = this.toggleCell(x,y);
+    if (this.blockNumber[x][y] !== this.stateC) {
+      this.floodFill(x, y, this.stateC);  
+    } 
   }
 
   //opperation
   floodFill(x, y, stateC) {
-    let rows = this.grid.length;
-    let cols = this.grid[x].length;
+    let rows = this.blockNumber.length;
+    let cols = this.blockNumber[x].length;
     //base case
-    console.log(this.blockNumber[x][y]);
-    console.log(this.stateC);
     if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
-      return this.blockNumber[x][y] = this.stateC;
+      console.log("there");
+      return;
     }
   
     else {
       //look at neighbours 
       //north
+      console.log("here");
       this.floodFill(x, y - 1, stateC);
       //south
       this.floodFill(x, y + 1, stateC);
@@ -213,7 +208,7 @@ class Gridcat {
 
   //show grid
   displayGrid() {
-    translate(windowWidth/4, 0);
+    // translate(windowWidth/4, 0);
     for (let y = 0; y < this.GRID_SIZE; y++) {
       for (let x = 0; x < this.GRID_SIZE; x++) {
         if (this.GRID_SIZE >= 40) {
@@ -833,11 +828,13 @@ function mousePressed() {
   //colour cat
   if (state === "cat") {
     let y = Math.floor(mouseY/ catImage.cellSize);
-    let x = Math.floor(wMouseX() / catImage.cellSize);
+    let x = Math.floor(mouseX / catImage.cellSize);
 
+    //mousewheel flood fill
     if (mouseButton === CENTER){
       catImage.floodFillStart(x, y);
     }
+    //just one cell
     else{
       catImage.toggleCell(x, y);   //current cell
     }
@@ -882,6 +879,10 @@ function setupImage() {
       catImage.img.resize(catImage.GRID_SIZE, catImage.GRID_SIZE);
       catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
       catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
+      fill("black");
+      textSize(catImage.cellSize/1.75);
+      text("Press the number on your keynoard that coresponds with the number you wish to colour on screen.", change4, h)
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
     }
     else {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
@@ -927,6 +928,10 @@ function setupImage() {
       skzoo.img.resize(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
+      fill("black");
+      textSize(catImage.cellSize/1.75);
+      text("Press the number on your keynoard that coresponds with the number you wish to colour on screen.", change4, h)
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
     }
     else {
       skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -1179,11 +1184,19 @@ function doneColoring() {
 }
 
 function backToStart() {
-  if (mouseX > change1 && mouseX < change1+diameter && mouseY < h && mouseY > h+diameter) {
+  if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/4 && mouseY > h+diameter/4) {
     //change state
     state = "start";
   }
 }
+
+// function menuButton() {
+//   fill(220);
+//   rect(change5 - diameter/2, h-diameter/4, diameter, diameter/2);
+//   fill("black");
+//   textSize(diameter/3);
+//   text("Menu", change5, h);
+// }
 
 function music() {
   if (state === "start" && !startMusic.isPlaying()) {
@@ -1214,9 +1227,4 @@ function music() {
     userMusic.setVolume(0.75);
     userMusic.loop();
   }
-}
-
-function wMouseX() {
-  //adjust to be on grid!!!
-  return mouseX * (windowWidth / width);
 }
