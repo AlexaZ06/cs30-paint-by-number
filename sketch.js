@@ -798,9 +798,11 @@ function draw() {
   }
   if (state === "cat"){
     catImage.displayGrid();
+    menuButton();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
+    menuButton();
   }
   if (state === "end"){
     endScreen();
@@ -838,6 +840,8 @@ function mousePressed() {
     else{
       catImage.toggleCell(x, y);   //current cell
     }
+
+    backToStart();
   }
   //colour other images
   if (state === "skzoo"){
@@ -881,8 +885,9 @@ function setupImage() {
       catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
       fill("black");
       textSize(catImage.cellSize/1.75);
-      text("Press the number on your keynoard that coresponds with the number you wish to colour on screen.", change4, h)
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
+      textAlign(LEFT);
+      text("Press the number on your keyboard that coresponds with the number you wish to colour.", change4, h1);
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h1+diameter/8);
     }
     else {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
@@ -929,9 +934,10 @@ function setupImage() {
       skzoo.imgColour = skzoo.getColors(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       skzoo.blockNumber = skzoo.numberImage(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       fill("black");
-      textSize(catImage.cellSize/1.75);
-      text("Press the number on your keynoard that coresponds with the number you wish to colour on screen.", change4, h)
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
+      textSize(skzoo.cellSize/1.75);
+      textAlign(LEFT);
+      text("Press the number on the keyboard that coresponds with the number you wish to colour.", change4, h1);
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h1+diameter/8);
     }
     else {
       skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -1184,19 +1190,20 @@ function doneColoring() {
 }
 
 function backToStart() {
+  console.log("is here");
   if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/4 && mouseY > h+diameter/4) {
     //change state
     state = "start";
   }
 }
 
-// function menuButton() {
-//   fill(220);
-//   rect(change5 - diameter/2, h-diameter/4, diameter, diameter/2);
-//   fill("black");
-//   textSize(diameter/3);
-//   text("Menu", change5, h);
-// }
+function menuButton() {
+  fill(220);
+  rect(change5 - diameter/2, h-diameter/4, diameter, diameter/2);
+  fill("black");
+  textSize(diameter/3);
+  text("Menu", change5, h);
+}
 
 function music() {
   if (state === "start" && !startMusic.isPlaying()) {
