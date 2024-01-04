@@ -799,13 +799,16 @@ function draw() {
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
+    doneColoring();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
+    doneColoring();
   }
   if (state === "end"){
     endScreen();
+    doneColoring();
   }
 }
 
@@ -841,6 +844,7 @@ function mousePressed() {
       catImage.toggleCell(x, y);   //current cell
     }
 
+    //return to start screen
     backToStart();
   }
   //colour other images
@@ -849,6 +853,9 @@ function mousePressed() {
     let x = Math.floor(mouseX / skzoo.cellSize);
 
     skzoo.toggleCell(x,y);
+
+    //return to start screen
+    backToStart();
   }
   //select stract options
   if (state === "start"){
@@ -1190,19 +1197,19 @@ function doneColoring() {
 }
 
 function backToStart() {
-  console.log("is here");
-  if (mouseX > change5-diameter/2 && mouseX < change5+diameter/2 && mouseY < h+diameter/4 && mouseY > h+diameter/4) {
+  if (mouseX > width*3/4-diameter/2 && mouseX < width*3/4+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
     //change state
     state = "start";
+    return state;
   }
 }
 
 function menuButton() {
   fill(220);
-  rect(change5 - diameter/2, h-diameter/4, diameter, diameter/2);
+  rect(width*3/4 - diameter/2, h/2-diameter/4, diameter, diameter/2);
   fill("black");
   textSize(diameter/3);
-  text("Menu", change5, h);
+  text("Menu", width*3/4, h/2);
 }
 
 function music() {
