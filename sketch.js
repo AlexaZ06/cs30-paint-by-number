@@ -15,7 +15,7 @@
 //  - Lemon Cake from https://youtu.be/oN8OI28Ne-w?si=iEFznFWiCbbW3DE0
 //  - Boba date from https://youtu.be/a3ruJFU5C6g?si=N8ulGygC4PcLOOKd
 //  - 'In Dreamland' from https://youtu.be/DSWYAclv2I8?si=RrVYcKdtSv-Pa62-
-// **Images not mine, credit to their owners**
+// **Images and music are not mine, credit to their owners**
 
 //set variables
 let state = "start";
@@ -777,6 +777,11 @@ class Skzoo extends Gridcat {
     }
   }
 
+  //change cell colour for floodfill
+  cellColour(x,y) {
+    super.cellColour(x,y);
+  }
+
   //activation
   floodFillStart (x,y) {
     super.floodFillStart(x,y);
@@ -840,9 +845,9 @@ function keyTyped() {
     skzooImageKeys();
   }
   //user
-  if (state === "userimage"){
-    // userImageKeys();
-  }
+  // if (state === "userimage"){
+  //   userImageKeys();
+  // }
 }
 
 //fill in colour and select options
@@ -853,11 +858,11 @@ function mousePressed() {
     let x = Math.floor(mouseX / catImage.cellSize);
 
     //mousewheel flood fill
-    if (mouseButton === CENTER){
+    if (mouseButton === CENTER) {
       catImage.floodFillStart(x, y);
     }
     //just one cell
-    else{
+    else {
       catImage.toggleCell(x, y);   //current cell
     }
 
@@ -865,11 +870,16 @@ function mousePressed() {
     backToStart();
   }
   //colour other images
-  if (state === "skzoo"){
+  if (state === "skzoo") {
     let y = Math.floor(mouseY / skzoo.cellSize);
     let x = Math.floor(mouseX / skzoo.cellSize);
 
-    skzoo.toggleCell(x,y);
+    if (mouseButton === CENTER) {
+      skzoo.floodFillStart(x,y);
+    }
+    else {
+      skzoo.toggleCell(x,y);
+    }
 
     //return to start screen
     backToStart();
@@ -910,8 +920,8 @@ function setupImage() {
       fill("black");
       textSize(catImage.cellSize/1.75);
       textAlign(LEFT);
-      text("Press the number on your keyboard that coresponds with the number you wish to colour.", change4, h1);
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h1+diameter/8);
+      text("Press the number on your keyboard that coresponds with the number you wish to colour.", change4, h);
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
     }
     else {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
@@ -960,8 +970,8 @@ function setupImage() {
       fill("black");
       textSize(skzoo.cellSize/1.75);
       textAlign(LEFT);
-      text("Press the number on the keyboard that coresponds with the number you wish to colour.", change4, h1);
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h1+diameter/8);
+      text("Press the number on the keyboard that coresponds with the number you wish to colour.", change4, h);
+      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
     }
     else {
       skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -973,6 +983,9 @@ function setupImage() {
 //start screen
 function startScreen() {
   if (state === "start"){
+    background("white");
+
+    // variables
     diameter = width/15;
     let w = (width-diameter)/5;
     change1 = w-diameter;
@@ -984,7 +997,7 @@ function startScreen() {
     h1 = h*3;
     let font = diameter/2;
     let font1 =diameter/6;
-    background("white");
+
     fill("lightblue");
     imageMode(CENTER);
 
@@ -1030,6 +1043,7 @@ function startScreen() {
   }
 }
 
+//end screen
 function endScreen() {
   if (state === "end"){
     background("black");
@@ -1085,7 +1099,7 @@ function skzooImageKeys() {
   }
 }
 
-// button pushed change state and create coloring image
+//button pushed change state and create coloring image
 function buttonPushed() {
   //cat
   if (mouseX > change1-diameter/2 && mouseX < change1+diameter/2 && mouseY < h+diameter/2 && mouseY > h-diameter/2) {
@@ -1213,22 +1227,25 @@ function doneColoring() {
   // }
 }
 
+//return to start button parameters
 function backToStart() {
-  if (mouseX > width*3/4-diameter/2 && mouseX < width*3/4+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
+  if (mouseX > width*6/7-diameter/2 && mouseX < width*6/7+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
     //change state
     state = "start";
     return state;
   }
 }
 
+//create menu button
 function menuButton() {
   fill(220);
-  rect(width*3/4 - diameter/2, h/2-diameter/4, diameter, diameter/2);
+  rect(width*10/11 - diameter/2, h/2-diameter/4, diameter, diameter/2);
   fill("black");
   textSize(diameter/3);
-  text("Menu", width*3/4, h/2);
+  text("Menu", width*10/11, h/2);
 }
 
+//play music according to state
 function music() {
   if (state === "start" && !startMusic.isPlaying()) {
     catMusic.stop();
