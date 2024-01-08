@@ -170,13 +170,35 @@ class Gridcat {
     }
   }
  
+  cellColour(x,y) {
+    //check that we are within the grid, then toggle
+    if (x >= 0 && x < this.GRID_SIZE && y >= 0 && y < this.GRID_SIZE) {
+      // check for right colour then toggle to colour
+      if (this.blockNumber[y][x] < 10) {
+        if (this.colour === 0 && this.blockNumber[y][x] === 0) {
+          this.blockNumber[y][x] += 10;
+        }
+        else if (this.colour === 1 && this.blockNumber[y][x] === 1) {
+          this.blockNumber[y][x] += 11;
+        }
+        else if (this.colour === 2 && this.blockNumber[y][x] === 2) {
+          this.blockNumber[y][x] += 20;
+        }
+        else if (this.colour === 3 && this.blockNumber[y][x] === 3) {
+          this.blockNumber[y][x] += 30;
+        }
+        else if (this.colour === 4 && this.blockNumber[y][x] === 4) {
+          this.blockNumber[y][x] += 40;
+        }
+      }
+    }
+    return this.blockNumber[y][x];
+  }
+
   //floodfill
   //call
   floodFillStart(x, y) {
-    console.log("here");
-    console.log(this.blockNumber[x][y]);
-    console.log(this.stateC);
-    this.stateC = this.toggleCell(x,y);
+    this.stateC = this.cellColour(x,y);
     if (this.blockNumber[x][y] !== this.stateC) {
       this.floodFill(x, y, this.stateC);  
     } 
@@ -186,23 +208,21 @@ class Gridcat {
   floodFill(x, y, stateC) {
     let rows = this.blockNumber.length;
     let cols = this.blockNumber[x].length;
-    //base case
-    if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
-      console.log("there");
-      return;
-    }
-  
-    else {
-      //look at neighbours 
-      //north
-      console.log("here");
-      this.floodFill(x, y - 1, stateC);
-      //south
-      this.floodFill(x, y + 1, stateC);
-      //east
-      this.floodFill(x + 1, y, stateC);
-      //west
-      this.floodFill(x - 1, y, stateC);
+    if (this.colour === this.blockNumber[x][y]) {
+
+      //base case
+      if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
+        return;
+      }
+    
+      else {
+        this.blockNumber[x][y] = this.stateC;
+        //look at neighbours 
+        this.floodFill(x + 1, y, stateC);
+        this.floodFill(x - 1, y, stateC);
+        this.floodFill(x, y - 1, stateC);
+        this.floodFill(x, y + 1, stateC);
+      }
     }
   }
 
@@ -473,7 +493,7 @@ class Grid extends Gridcat {
 
 class Skzoo extends Gridcat {
   constructor(img) {
-   super(img);
+    super(img);
   }
 
   //create grid
@@ -523,7 +543,7 @@ class Skzoo extends Gridcat {
   
             //pink 
             else if (this.imgColour[y][x][0] > 230 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 180) {
-            blocknum[y].push(2);
+              blocknum[y].push(2);
             }
   
             //black
@@ -549,7 +569,7 @@ class Skzoo extends Gridcat {
           else if (state1 === "jiniret"){
             //pink 
             if (this.imgColour[y][x][0] > 240 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 195) {
-            blocknum[y].push(1);
+              blocknum[y].push(1);
             }
   
             //black
@@ -599,7 +619,7 @@ class Skzoo extends Gridcat {
             //brown
             else if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 190 && this.imgColour[y][x][2] > 170
                      || this.imgColour[y][x][3] >= 200) {
-                blocknum[y].push(2);
+              blocknum[y].push(2);
             }
           }
         }
@@ -799,16 +819,13 @@ function draw() {
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
-    doneColoring();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
-    doneColoring();
   }
   if (state === "end"){
     endScreen();
-    doneColoring();
   }
 }
 
@@ -824,7 +841,7 @@ function keyTyped() {
   }
   //user
   if (state === "userimage"){
-    userImageKeys();
+    // userImageKeys();
   }
 }
 
@@ -1009,7 +1026,7 @@ function startScreen() {
     textAlign(CENTER, CENTER);
     textSize(font);
     fill("black");
-    text("Choose an image to colour.", width/2, height/2,)
+    text("Choose an image to colour.", width/2, height/2,);
   }
 }
 
@@ -1191,9 +1208,9 @@ function doneColoring() {
       }
     }
   }
-  if (state = "userimage") {
+  // if (state = "userimage") {
 
-  }
+  // }
 }
 
 function backToStart() {
