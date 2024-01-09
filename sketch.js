@@ -206,12 +206,12 @@ class Gridcat {
 
   //opperation
   floodFill(x, y, stateC) {
-    let rows = this.blockNumber.length;
-    let cols = this.blockNumber[x].length;
     if (this.colour === this.blockNumber[x][y]) {
+      let rows = this.blockNumber.length;
+      let cols = this.blockNumber[x].length;
 
       //base case
-      if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
+      if (x<0 || x > rows || y<0 || y > cols || this.blockNumber[x][y] === this.stateC) {
         return;
       }
     
@@ -779,7 +779,7 @@ class Skzoo extends Gridcat {
 
   //change cell colour for floodfill
   cellColour(x,y) {
-    super.cellColour(x,y);
+    return super.cellColour(x,y);
   }
 
   //activation
@@ -1229,7 +1229,7 @@ function doneColoring() {
 
 //return to start button parameters
 function backToStart() {
-  if (mouseX > width*6/7-diameter/2 && mouseX < width*6/7+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
+  if (mouseX > width-width*1/20-diameter/2 && mouseX < width-width*1/20+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
     //change state
     state = "start";
     return state;
@@ -1239,10 +1239,10 @@ function backToStart() {
 //create menu button
 function menuButton() {
   fill(220);
-  rect(width*10/11 - diameter/2, h/2-diameter/4, diameter, diameter/2);
+  rect(width-width*1/20 - diameter/2, h/2-diameter/4, diameter, diameter/2);
   fill("black");
   textSize(diameter/3);
-  text("Menu", width*10/11, h/2);
+  text("Menu", width-width*1/20, h/2);
 }
 
 //play music according to state
