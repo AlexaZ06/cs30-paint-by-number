@@ -206,9 +206,9 @@ class Gridcat {
 
   //opperation
   floodFill(x, y, stateC) {
+    let rows = this.blockNumber.length;
+    let cols = this.blockNumber[x].length;
     if (this.colour === this.blockNumber[x][y]) {
-      let rows = this.blockNumber.length;
-      let cols = this.blockNumber[x].length;
 
       //base case
       if (x<0 || x > rows || y<0 || y > cols || this.blockNumber[x][y] === this.stateC) {
@@ -1204,6 +1204,7 @@ function buttonPushed() {
 
 //check done
 function doneColoring() {
+  let done = false;
   if (state === "cat"){
     for (let y = 0; y < catImage.GRID_SIZE; y++){
       for (let x = 0; x < catImage.GRID_SIZE; x++){
