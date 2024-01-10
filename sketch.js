@@ -824,10 +824,12 @@ function draw() {
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
+    doneColoring();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
+    doneColoring();
   }
   if (state === "end"){
     endScreen();
@@ -1209,18 +1211,30 @@ function doneColoring() {
     for (let y = 0; y < catImage.GRID_SIZE; y++){
       for (let x = 0; x < catImage.GRID_SIZE; x++){
         if (catImage.blockNumber[y][x] >= 10) {
-          state = "end";
+          done = true;
+        }
+        else {
+          done = false;
         }
       }
+    }
+    if (done === true){
+      state = "end";
     }
   }
   if (state === "skzoo"){
     for (let y = 0; y < skzoo.GRID_SIZE; y++){
       for (let x = 0; x < skzoo.GRID_SIZE; x++){
         if (skzoo.blockNumber[y][x] >= 10) {
-          state = "end";
+          done = true;
+        }
+        else {
+          done = false;
         }
       }
+    }
+    if (done === true){
+      state = "end";
     }
   }
   // if (state = "userimage") {
