@@ -4,12 +4,14 @@
 //
 // Extra for Experts:
 // - https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/ (for floodfill)
-// - Erika helped get flood fill to work
+// - Erika and Angela helped with flood fill
 // - https://p5js.org/reference/#/p5/mouseButton (mousewheel)
 // - centering canvas:
 //  - https://forum.gamemaker.io/index.php?threads/drawing-and-centering-grids.104164/
 //  - https://editor.p5js.org/Scatropolis/sketches/mxxNeNG9F
 //  - https://stackoverflow.com/questions/60325768/changing-the-coordinate-system-in-p5-js
+// - Help from Mr. Schellenberg with Floodfill
+//
 // - Music from:
 //  - You(=I) from https://youtu.be/c0QEK8ZH5DU?si=h1i1_XcVhLATnNEg
 //  - Lemon Cake from https://youtu.be/oN8OI28Ne-w?si=iEFznFWiCbbW3DE0
