@@ -15,6 +15,7 @@
 //  - Lemon Cake from https://youtu.be/oN8OI28Ne-w?si=iEFznFWiCbbW3DE0
 //  - Boba date from https://youtu.be/a3ruJFU5C6g?si=N8ulGygC4PcLOOKd
 //  - 'In Dreamland' from https://youtu.be/DSWYAclv2I8?si=RrVYcKdtSv-Pa62-
+//  - cute piano background music from https://youtu.be/g71Rfcp06MU?list=PLMf0q6-pSDdsWY4LWYncx25qvonLA520c
 // **Images and music are not mine, credit to their owners**
 
 //set variables
@@ -45,8 +46,9 @@ let foxiny;
 //music
 let startMusic;
 let catMusic;
-let skzooMusic;
-let userMusic;
+let skzoo1Music;
+let skzoo2Music;
+let skzoo3Music;
 
 //create parent class using code from grid array game
 class Gridcat {
@@ -211,7 +213,7 @@ class Gridcat {
     if (this.colour === this.blockNumber[x][y]) {
 
       //base case
-      if (x<0 || x > rows || y<0 || y > cols || this.blockNumber[x][y] === this.stateC) {
+      if (x<0 || x >= rows || y<0 || y >= cols || this.blockNumber[x][y] === this.stateC) {
         return;
       }
     
@@ -807,10 +809,11 @@ function preload() {
   foxiny = loadImage("assets/Foxiny.png");
 
   //load sound
-  startMusic = loadSound("assets/In Dreamland.mp3");
-  catMusic = loadSound("assets/boba date.mp3");
-  skzooMusic = loadSound("assets/You (=I).mp3");
-  userMusic = loadSound("assets/lemon cake.mp3");
+  startMusic = loadSound("music/In Dreamland.mp3");
+  catMusic = loadSound("music/boba date.mp3");
+  skzoo1Music = loadSound("music/You (=I).mp3");
+  skzoo2Music = loadSound("music/cute piano music.mp3");
+  skzoo3Music = loadSound("music/lemon cake.mp3");
 }
 
 function setup() {
@@ -824,12 +827,12 @@ function draw() {
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
-    doneColoring();
+    // doneColoring();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
-    doneColoring();
+    // doneColoring();
   }
   if (state === "end"){
     endScreen();
@@ -1247,7 +1250,8 @@ function backToStart() {
   if (mouseX > width-width*1/20-diameter/2 && mouseX < width-width*1/20+diameter && mouseY < h/2+diameter/2 && mouseY > h/2-diameter/4) {
     //change state
     state = "start";
-    return state;
+    state1 = "";
+    return state && state1;
   }
 }
 
@@ -1263,31 +1267,63 @@ function menuButton() {
 //play music according to state
 function music() {
   if (state === "start" && !startMusic.isPlaying()) {
+    //stop music
     catMusic.stop();
-    skzooMusic.stop();
-    userMusic.stop();
+    skzoo1Music.stop();
+    skzoo2Music.stop();
+    skzoo3Music.stop();
+
+    //play music
     startMusic.setVolume(0.75);
     startMusic.loop();
   }
   if (state === "cat" && !catMusic.isPlaying()) {
+    //stop music
     startMusic.stop();
-    skzooMusic.stop();
-    userMusic.stop();
+    skzoo1Music.stop();
+    skzoo2Music.stop();
+    skzoo3Music.stop();
+
+    //play music
     catMusic.setVolume(0.75);
     catMusic.loop();
   }
-  if (state === "skzoo" && !skzooMusic.isPlaying()) {
+  if (state1 === "wolfchan" && !skzoo3Music.isPlaying() ||
+      state1 === "leebit" && !skzoo3Music.isPlaying() ||
+      state1 === "jiniret" && !skzoo3Music.isPlaying()) {
+    //stop music
     startMusic.stop();
     catMusic.stop();
-    userMusic.stop();
-    skzooMusic.setVolume(0.75);
-    skzooMusic.loop();
+    skzoo1Music.stop();
+    skzoo2Music.stop();
+
+    //play music
+    skzoo3Music.setVolume(0.75);
+    skzoo3Music.loop();
   }
-  if (state === "userimage" && !userMusic.isPlaying()){
+  if (state1 === "foxiny" && !skzoo2Music.isPlaying() ||
+      state1 === "dwaekki" && !skzoo2Music.isPlaying() ||
+      state1 === "puppym" && !skzoo2Music.isPlaying()) {
+    //stop music
     startMusic.stop();
     catMusic.stop();
-    skzooMusic.stop();
-    userMusic.setVolume(0.75);
-    userMusic.loop();
+    skzoo1Music.stop();
+    skzoo3Music.stop();
+
+    //play music
+    skzoo2Music.setVolume(0.75);
+    skzoo2Music.loop();
+  }
+  if (state1 === "quokka" && !skzoo1Music.isPlaying() ||
+      state1 === "bbokari" && !skzoo1Music.isPlaying()){
+    //stop music
+    startMusic.stop();
+    catMusic.stop();
+    skzoo2Music.stop();
+    skzoo3Music.stop();
+
+    //stop music
+    skzoo1Music.setVolume(0.75);
+    skzoo1Music.loop();
   }
 }
