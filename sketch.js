@@ -61,6 +61,7 @@ class Gridcat {
     this.img = img;
     this.imgColour;
     this.blockNumber;
+    this.currentNumber;
     this.colour;
     this.stateC = 0;
   }
@@ -178,25 +179,25 @@ class Gridcat {
     //check that we are within the grid, then toggle
     if (x >= 0 && x < this.GRID_SIZE && y >= 0 && y < this.GRID_SIZE) {
       // check for right colour then toggle to colour
-      if (this.blockNumber[y][x] < 10) {
-        if (this.colour === 0 && this.blockNumber[y][x] === 0) {
-          this.blockNumber[y][x] += 10;
+      if (this.currentNumber[y][x] < 10) {
+        if (this.colour === 0 && this.currentNumber[y][x] === 0) {
+          this.currentNumber[y][x] += 10;
         }
-        else if (this.colour === 1 && this.blockNumber[y][x] === 1) {
-          this.blockNumber[y][x] += 11;
+        else if (this.colour === 1 && this.currentNumber[y][x] === 1) {
+          this.currentNumber[y][x] += 11;
         }
-        else if (this.colour === 2 && this.blockNumber[y][x] === 2) {
-          this.blockNumber[y][x] += 20;
+        else if (this.colour === 2 && this.currentNumber[y][x] === 2) {
+          this.currentNumber[y][x] += 20;
         }
-        else if (this.colour === 3 && this.blockNumber[y][x] === 3) {
-          this.blockNumber[y][x] += 30;
+        else if (this.colour === 3 && this.currentNumber[y][x] === 3) {
+          this.currentNumber[y][x] += 30;
         }
-        else if (this.colour === 4 && this.blockNumber[y][x] === 4) {
-          this.blockNumber[y][x] += 40;
+        else if (this.colour === 4 && this.currentNumber[y][x] === 4) {
+          this.currentNumber[y][x] += 40;
         }
       }
     }
-    return this.blockNumber[y][x];
+    return this.currentNumber[y][x];
   }
 
   //floodfill
