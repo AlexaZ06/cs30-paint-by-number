@@ -23,6 +23,7 @@
 //set variables
 let state = "start";
 let state1 = "";
+let end = false;
 let diameter;
 let change1;
 let change2;
@@ -61,7 +62,7 @@ class Gridcat {
     this.img = img;
     this.imgColour;
     this.blockNumber;
-    this.currentNumber;
+    this.currentNumber = 0;
     this.colour;
     this.stateC = 0;
   }
@@ -179,25 +180,25 @@ class Gridcat {
     //check that we are within the grid, then toggle
     if (x >= 0 && x < this.GRID_SIZE && y >= 0 && y < this.GRID_SIZE) {
       // check for right colour then toggle to colour
-      if (this.currentNumber[y][x] < 10) {
-        if (this.colour === 0 && this.currentNumber[y][x] === 0) {
-          this.currentNumber[y][x] += 10;
+      if (this.blockNumber[y][x] < 10) {
+        if (this.colour === 0 && this.blockNumber[y][x] === 0) {
+          this.currentNumber = this.blockNumber[y][x] + 10;
         }
-        else if (this.colour === 1 && this.currentNumber[y][x] === 1) {
-          this.currentNumber[y][x] += 11;
+        else if (this.colour === 1 && this.blockNumber[y][x] === 1) {
+          this.currentNumber = this.blockNumber[y][x] + 11;
         }
-        else if (this.colour === 2 && this.currentNumber[y][x] === 2) {
-          this.currentNumber[y][x] += 20;
+        else if (this.colour === 2 && this.blockNumber[y][x] === 2) {
+          this.currentNumber = this.blockNumber[y][x] + 20;
         }
-        else if (this.colour === 3 && this.currentNumber[y][x] === 3) {
-          this.currentNumber[y][x] += 30;
+        else if (this.colour === 3 && this.blockNumber [y][x] === 3) {
+          this.currentNumber = this.blockNumber[y][x] + 30;
         }
-        else if (this.colour === 4 && this.currentNumber[y][x] === 4) {
-          this.currentNumber[y][x] += 40;
+        else if (this.colour === 4 && this.blockNumber[y][x] === 4) {
+          this.currentNumber = this.blockNumber[y][x] + 40;
         }
       }
     }
-    return this.currentNumber[y][x];
+    return this.currentNumber;
   }
 
   //floodfill
@@ -221,11 +222,15 @@ class Gridcat {
   
     if (this.colour === this.blockNumber[y][x]) {
       this.blockNumber[y][x] = stateC;
-      //look at neighbours 
+      //look at blockaround it 
       this.floodFill(x + 1, y, stateC);
       this.floodFill(x - 1, y, stateC);
       this.floodFill(x, y - 1, stateC);
       this.floodFill(x, y + 1, stateC);
+      this.floodFill(x - 1, y - 1, stateC);
+      this.floodFill(x - 1, y + 1, stateC);
+      this.floodFill(x + 1, y + 1, stateC);
+      this.floodFill(x + 1, y - 1, stateC);
     }
   }
 
@@ -741,7 +746,7 @@ class Skzoo extends Gridcat {
             //bbokari
             else if (state1 === "bbokari"){
               if (this.blockNumber[y][x] === 12) {
-                fill("yellow");
+                fill(253, 253, 150);
               }
               else if (this.blockNumber[y][x] === 22) {
                 fill("black");
@@ -787,12 +792,12 @@ class Skzoo extends Gridcat {
 
   //activation
   floodFillStart (x,y) {
-    super.floodFillStart(x,y);
+    return super.floodFillStart(x,y);
   }
 
   //floodfill
-  floodFill (x,y) {
-    super.floodFill(x,y);
+  floodFill (x,y, stateC) {
+    return super.floodFill(x,y, stateC);
   }
 }
 
@@ -828,19 +833,18 @@ function draw() {
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
-    // doneColoring();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
-    // doneColoring();
   }
   // if (state === "userimage"){
   //   menuButton();
   // }
-  if (state === "end"){
+  if (end === true){
     endScreen();
   }
+  doneColoring();
 }
 
 //change colour of fill base on key
@@ -902,7 +906,7 @@ function mousePressed() {
     buttonPushed();
   }
   //select end options
-  if (state === "end"){
+  if (end === true){
     backToStart();
   }
   music();
@@ -933,8 +937,10 @@ function setupImage() {
       fill("black");
       textSize(catImage.cellSize/1.75);
       textAlign(LEFT);
-      text("Press the number on your keyboard that coresponds with the number you wish to colour.", change4, h);
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
+      text("Please play full screen on a laptop or desktop for best experience.", change4, h);
+      text("Press the number on your keyboard that matches with the number you wish to colour.", change4, h+diameter/8);
+      text("Left click to colour.", change4, h+diameter/4);
+      text("Press mouse wheel to fill areas.", change4, h+diameter*3/8);
     }
     else {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
@@ -983,8 +989,10 @@ function setupImage() {
       fill("black");
       textSize(skzoo.cellSize/1.75);
       textAlign(LEFT);
-      text("Press the number on the keyboard that coresponds with the number you wish to colour.", change4, h);
-      text("Then left click to colour and press the mouse wheel to fill areas.", change4, h+diameter/8);
+      text("Please play full screen on a laptop or desktop for best experience.", change4, h);
+      text("Press the number on your keyboard that matches with the number you wish to colour.", change4, h+diameter/8);
+      text("Left click to colour.", change4, h+diameter/4);
+      text("Press mouse wheel to fill areas.", change4, h+diameter*3/8);
     }
     else {
       skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -1058,22 +1066,26 @@ function startScreen() {
 
 //end screen
 function endScreen() {
-  if (state === "end"){
-    background("black");
-    if (state === "cat"){
-      catImage.displayGrid();
-      rect(change5, h, diameter, diameter/2);
-      fill("black");
-      textAlign(CENTER, CENTER);
-      text("start", change5, h);
-    }
-    if (state === "skzoo"){
-      skzoo.displayGrid();
-      rect(change5, h, diameter, diameter/2);
-      fill("black");
-      textAlign(CENTER, CENTER);
-      text("To Start", change5, h);
-    }
+  background("black");
+  if (state === "cat"){
+    translate(windowWidth/4, 0);
+    catImage.displayGrid();
+    fill("white");
+    textAlign(LEFT);
+    textSize(catImage.cellSize);
+    text("Yay! You finished colouring!", -width/4, h/4);
+    text("Relead the page to continue colouring", -width/4, h/4 + diameter/4);
+    text("or take a picture of your work.", -width/4, h/4 + diameter/2);
+  }
+  if (state === "skzoo"){
+    translate(windowWidth/4, 0);
+    skzoo.displayGrid();
+    fill("white");
+    textAlign(LEFT);
+    textSize(skzoo.cellSize);
+    text("Yay! You finished colouring!", -width/4, h/4);
+    text("Relead the page to continue colouring", -width/4, h/4 + diameter/4);
+    text("or take a picture of your work.", -width/4, h/4 + diameter/2);
   }
 }
 
@@ -1225,12 +1237,12 @@ function doneColoring() {
           done = true;
         }
         else {
-          done = false;
+          return done = false;
         }
       }
     }
     if (done === true){
-      state = "end";
+      end = true;
     }
   }
   if (state === "skzoo"){
@@ -1240,12 +1252,12 @@ function doneColoring() {
           done = true;
         }
         else {
-          done = false;
+          return done = false;
         }
       }
     }
     if (done === true){
-      state = "end";
+      end = true;
     }
   }
   // if (state = "userimage") {
