@@ -829,14 +829,17 @@ function setup() {
 function draw() {
   if (state === "start"){
     startScreen();
+    musicChoices();
   }
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
+    musicChoices();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
+    musicChoices();
   }
   // if (state === "userimage"){
   //   menuButton();
@@ -1284,8 +1287,17 @@ function menuButton() {
   text("Menu", width-width*1/20, h/2);
 }
 
+function musicChoices() {
+  fill(220);
+  rect(width-width*1/20 - diameter*2, h/2-diameter/4, diameter, diameter/2);
+  fill("black");
+  textSize(diameter/6);
+  text("Music Menu", width-width*1/20 - diameter*1.5, h/2);
+}
+
 //play music according to state
 function music() {
+  //music for start
   if (state === "start" && !startMusic.isPlaying()) {
     //stop music
     catMusic.stop();
@@ -1297,6 +1309,7 @@ function music() {
     startMusic.setVolume(0.75);
     startMusic.loop();
   }
+  //music for colouring the cat
   if (state === "cat" && !catMusic.isPlaying()) {
     //stop music
     startMusic.stop();
@@ -1308,8 +1321,8 @@ function music() {
     catMusic.setVolume(0.75);
     catMusic.loop();
   }
+  //music for 2 skzoos
   if (state1 === "wolfchan" && !skzoo3Music.isPlaying() ||
-      state1 === "leebit" && !skzoo3Music.isPlaying() ||
       state1 === "jiniret" && !skzoo3Music.isPlaying()) {
     //stop music
     startMusic.stop();
@@ -1321,9 +1334,9 @@ function music() {
     skzoo3Music.setVolume(0.75);
     skzoo3Music.loop();
   }
+  //music for 3 skzoos
   if (state1 === "foxiny" && !skzoo2Music.isPlaying() ||
-      state1 === "dwaekki" && !skzoo2Music.isPlaying() ||
-      state1 === "puppym" && !skzoo2Music.isPlaying()) {
+      state1 === "dwaekki" && !skzoo2Music.isPlaying()) {
     //stop music
     startMusic.stop();
     catMusic.stop();
@@ -1334,8 +1347,11 @@ function music() {
     skzoo2Music.setVolume(0.75);
     skzoo2Music.loop();
   }
+  //music for 4 skzoos
   if (state1 === "quokka" && !skzoo1Music.isPlaying() ||
-      state1 === "bbokari" && !skzoo1Music.isPlaying()){
+      state1 === "bbokari" && !skzoo1Music.isPlaying() ||
+      state1 === "puppym" && !skzoo1Music.isPlaying() ||
+      state1 === "leebit" && !skzoo1Music.isPlaying()){
     //stop music
     startMusic.stop();
     catMusic.stop();
