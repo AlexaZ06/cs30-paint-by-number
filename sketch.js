@@ -1,15 +1,15 @@
 // Paint/Colour by Number
 // Alexandra Zhu
-// January XX 2024
+// January 22 2024
 //
 // Extra for Experts:
 // - https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/ (for floodfill)
 // - Erika and Angela helped with flood fill
 // - https://p5js.org/reference/#/p5/mouseButton (mousewheel)
 // - centering canvas:
-//  - https://forum.gamemaker.io/index.php?threads/drawing-and-centering-grids.104164/
-//  - https://editor.p5js.org/Scatropolis/sketches/mxxNeNG9F
-//  - https://stackoverflow.com/questions/60325768/changing-the-coordinate-system-in-p5-js
+//   - https://forum.gamemaker.io/index.php?threads/drawing-and-centering-grids.104164/
+//   - https://editor.p5js.org/Scatropolis/sketches/mxxNeNG9F
+//   - https://stackoverflow.com/questions/60325768/changing-the-coordinate-system-in-p5-js
 // - Help from Mr. Schellenberg with Floodfill
 //
 // - Music from:
@@ -18,6 +18,7 @@
 //  - Boba date from https://youtu.be/a3ruJFU5C6g?si=N8ulGygC4PcLOOKd
 //  - 'In Dreamland' from https://youtu.be/DSWYAclv2I8?si=RrVYcKdtSv-Pa62-
 //  - cute piano background music from https://youtu.be/g71Rfcp06MU?list=PLMf0q6-pSDdsWY4LWYncx25qvonLA520c
+//  - Want so BAD from https://youtu.be/jbgwkgVW3HQ
 // **Images and music are not mine, credit to their owners**
 
 //set variables
@@ -47,6 +48,7 @@ let puppym;
 let foxiny;
 
 //music
+let musicArray = [];
 let startMusic;
 let catMusic;
 let skzoo1Music;
@@ -56,7 +58,7 @@ let skzoo4Music;
 
 //create parent class using code from grid array game
 class Gridcat {
-  constructor (img){
+  constructor (img) {
     this.grid;
     this.GRID_SIZE = 40;
     this.cellSize;
@@ -134,6 +136,7 @@ class Gridcat {
     }
     return blocknum;
   }
+
   //change cell when clicked
   toggleCell(x, y) {
     //check that we are within the grid, then toggle
@@ -177,6 +180,7 @@ class Gridcat {
     }
   }
  
+  //check which colour to fill cells for floodfill
   cellColour(x,y) {
     //check that we are within the grid, then toggle
     if (x >= 0 && x < this.GRID_SIZE && y >= 0 && y < this.GRID_SIZE) {
@@ -217,10 +221,11 @@ class Gridcat {
     let cols = this.blockNumber[0].length;
     
     //base case
-    if (x<0 || x >= rows || y<0 || y >= cols){ // || this.blockNumber[y][x] === this.stateC) {
+    if (x<0 || x >= rows || y<0 || y >= cols) {
       return;
     }
   
+    //fill area
     if (this.colour === this.blockNumber[y][x]) {
       this.blockNumber[y][x] = stateC;
       //look at blockaround it 
@@ -237,7 +242,6 @@ class Gridcat {
 
   //show grid
   displayGrid() {
-    // translate(windowWidth/4, 0);
     for (let y = 0; y < this.GRID_SIZE; y++) {
       for (let x = 0; x < this.GRID_SIZE; x++) {
         if (this.GRID_SIZE >= 40) {
@@ -522,7 +526,7 @@ class Skzoo extends Gridcat {
       blocknum.push([]);
       for (let x = 0; x < cols; x++) {
         //white then fill in image
-        if (state1 !== "foxiny"){
+        if (state1 !== "foxiny") {
           //white
           if (this.imgColour[y][x][0] >= 210 && this.imgColour[y][x][1] >= 210 && this.imgColour[y][x][2] >= 210
             || this.imgColour[y][x][3] < 40) {
@@ -530,7 +534,7 @@ class Skzoo extends Gridcat {
           }
   
           //colours for specific images
-          else if (state1 === "wolfchan"){
+          else if (state1 === "wolfchan") {
             //light grey
             if (this.imgColour[y][x][0] > 142 && this.imgColour[y][x][1] > 167 && this.imgColour[y][x][2] > 167) {
               blocknum[y].push(1);
@@ -542,7 +546,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "leebit"){
+          else if (state1 === "leebit") {
             //light grey
             if (this.imgColour[y][x][0] < 220 && this.imgColour[y][x][0] >= 100 &&
               this.imgColour[y][x][1] < 220 && this.imgColour[y][x][1] >= 100 &&
@@ -562,7 +566,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "dwaekki"){
+          else if (state1 === "dwaekki") {
             //pink 
             if (this.imgColour[y][x][0] > 150 && this.imgColour[y][x][1] > 150 && this.imgColour[y][x][2] > 75) {
               blocknum[y].push(1);
@@ -575,7 +579,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "jiniret"){
+          else if (state1 === "jiniret") {
             //pink 
             if (this.imgColour[y][x][0] > 240 && this.imgColour[y][x][1] > 170 && this.imgColour[y][x][2] > 195) {
               blocknum[y].push(1);
@@ -588,7 +592,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "quokka"){
+          else if (state1 === "quokka") {
             //light brown
             if (this.imgColour[y][x][0] > 210 && this.imgColour[y][x][1] > 115 && this.imgColour[y][x][2] > 70) {
               blocknum[y].push(1);
@@ -606,7 +610,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "bbokari"){
+          else if (state1 === "bbokari") {
             //yellow
             if (this.imgColour[y][x][0] > 100 && this.imgColour[y][x][1] > 80 && this.imgColour[y][x][2] > 40) {
               blocknum[y].push(1);
@@ -619,7 +623,7 @@ class Skzoo extends Gridcat {
             }
           }
   
-          else if (state1 === "puppym"){
+          else if (state1 === "puppym") {
             //tan
             if (this.imgColour[y][x][0] > 250 && this.imgColour[y][x][1] > 200 && this.imgColour[y][x][2] > 170) {
               blocknum[y].push(1);
@@ -652,7 +656,7 @@ class Skzoo extends Gridcat {
           }
 
           //cover missing cases
-          else{
+          else {
             blocknum[y].push(1);
           }
         }
@@ -662,7 +666,7 @@ class Skzoo extends Gridcat {
     return blocknum;
   }
 
-  toggleCell(x, y){
+  toggleCell(x, y) {
     super.toggleCell(x,y);
   }
 
@@ -689,7 +693,7 @@ class Skzoo extends Gridcat {
 
             //colours specific to each image
             //wolfchan
-            else if (state1 === "wolfchan"){
+            else if (state1 === "wolfchan") {
               if (this.blockNumber[y][x] === 12) {
                 fill("lightgrey");
               }
@@ -699,7 +703,7 @@ class Skzoo extends Gridcat {
             }
 
             //leebit
-            else if (state1 === "leebit"){
+            else if (state1 === "leebit") {
               if (this.blockNumber[y][x] === 12) {
                 fill("lightgrey");
               }
@@ -712,7 +716,7 @@ class Skzoo extends Gridcat {
             }
 
             //dwaekki
-            else if (state1 === "dwaekki"){
+            else if (state1 === "dwaekki") {
               if (this.blockNumber[y][x] === 12) {
                 fill("pink");
               }
@@ -722,7 +726,7 @@ class Skzoo extends Gridcat {
             }
 
             //jiniret
-            else if (state1 === "jiniret"){
+            else if (state1 === "jiniret") {
               if (this.blockNumber[y][x] === 12) {
                 fill("pink");
               }
@@ -732,7 +736,7 @@ class Skzoo extends Gridcat {
             }
 
             //quokka
-            else if (state1 === "quokka"){
+            else if (state1 === "quokka") {
               if (this.blockNumber[y][x] === 12) {
                 fill(244,164,96);
               }
@@ -745,7 +749,7 @@ class Skzoo extends Gridcat {
             }
 
             //bbokari
-            else if (state1 === "bbokari"){
+            else if (state1 === "bbokari") {
               if (this.blockNumber[y][x] === 12) {
                 fill(253, 253, 150);
               }
@@ -755,7 +759,7 @@ class Skzoo extends Gridcat {
             }
 
             //puppym
-            else  if (state1 === "puppym"){
+            else  if (state1 === "puppym") {
               if (this.blockNumber[y][x] === 12) {
                 fill(242, 210, 189);
               }
@@ -765,7 +769,7 @@ class Skzoo extends Gridcat {
             }
 
             //foxiny
-            else if (state1 === "foxiny"){
+            else if (state1 === "foxiny") {
               if (this.blockNumber[y][x] === 12) {
                 fill(255,248,220);
               }
@@ -829,21 +833,21 @@ function setup() {
 }
 
 function draw() {
-  if (state === "start"){
+  if (state === "start") {
     startScreen();
   }
-  if (state === "cat"){
+  if (state === "cat") {
     catImage.displayGrid();
     menuButton();
   }
-  if (state === "skzoo"){
+  if (state === "skzoo") {
     skzoo.displayGrid();
     menuButton();
   }
-  // if (state === "userimage"){
+  // if (state === "userimage") {
   //   menuButton();
   // }
-  if (end === true){
+  if (end === true) {
     endScreen();
   }
   doneColoring();
@@ -852,15 +856,15 @@ function draw() {
 //change colour of fill base on key
 function keyTyped() {
   //cat
-  if (state === "cat"){
+  if (state === "cat") {
     catImageKeys();
   }
   //skzoo
-  if (state === "skzoo"){
+  if (state === "skzoo") {
     skzooImageKeys();
   }
   //user
-  // if (state === "userimage"){
+  // if (state === "userimage") {
   //   userImageKeys();
   // }
 }
@@ -869,6 +873,7 @@ function keyTyped() {
 function mousePressed() {
   //colour cat
   if (state === "cat") {
+    //calculate which grid you're in
     let y = Math.floor(mouseY/ catImage.cellSize);
     let x = Math.floor(mouseX / catImage.cellSize);
 
@@ -886,12 +891,15 @@ function mousePressed() {
   }
   //colour other images
   if (state === "skzoo") {
+    //calculate which grid you're in 
     let y = Math.floor(mouseY / skzoo.cellSize);
     let x = Math.floor(mouseX / skzoo.cellSize);
 
+    //mousewheel flood fill
     if (mouseButton === CENTER) {
       skzoo.floodFillStart(x,y);
     }
+    //just one cell
     else {
       skzoo.toggleCell(x,y);
     }
@@ -900,11 +908,11 @@ function mousePressed() {
     backToStart();
   }
   //user
-  // if (state === "userimage"){
+  // if (state === "userimage") {
   //   backToStart();
   // }
   //select stract options
-  if (state === "start"){
+  if (state === "start") {
     buttonPushed();
   }
   //select end options
@@ -937,42 +945,42 @@ function setupImage() {
       catImage.imgColour = catImage.getColors(catImage.GRID_SIZE, catImage.GRID_SIZE);
       catImage.blockNumber = catImage.numberImage(catImage.GRID_SIZE, catImage.GRID_SIZE);
       fill("black");
-      textSize(catImage.cellSize/1.75);
+      textSize(catImage.cellSize/1.5);
       textAlign(LEFT);
-      text("Please play full screen on a laptop or desktop for best experience.", change4, h);
-      text("Press the number on your keyboard that matches with the number you wish to colour.", change4, h+diameter/8);
-      text("Left click to colour.", change4, h+diameter/4);
-      text("Press mouse wheel to fill areas.", change4, h+diameter*3/8);
+      text("Please play full screen on a laptop or desktop for best experience.", catImage.cellSize*catImage.GRID_SIZE + catImage.GRID_SIZE, h);
+      text("Press the number on your keyboard that matches with the number you wish to colour.", catImage.cellSize*catImage.GRID_SIZE + catImage.GRID_SIZE, h+diameter/4);
+      text("Left click to colour.", catImage.cellSize*catImage.GRID_SIZE + catImage.GRID_SIZE, h+diameter/2);
+      text("Press mouse wheel to fill areas.", catImage.cellSize*catImage.GRID_SIZE + catImage.GRID_SIZE, h+diameter*3/4);
     }
     else {
       catImage = catImage.generateEmptyGrid(catImage.GRID_SIZE, catImage.GRID_SIZE);
     }
   }
-  if (state === "skzoo"){
-    if (state1 === "wolfchan"){
+  if (state === "skzoo") {
+    if (state1 === "wolfchan") {
       skzoo = new Skzoo(wolfChan);
     }
-    else if (state1 === "leebit"){
+    else if (state1 === "leebit") {
       skzoo = new Skzoo(leeBit);
     }
-    else if (state1 === "dwaekki"){
+    else if (state1 === "dwaekki") {
       skzoo = new Skzoo(dwaekki);
     }
-    else if (state1 === "jiniret"){
+    else if (state1 === "jiniret") {
       skzoo = new Skzoo(jiniret);
     }
-    else if (state1 === "quokka"){
+    else if (state1 === "quokka") {
       skzoo = new Skzoo(quokka);
     }
-    else if (state1 === "bbokari"){
+    else if (state1 === "bbokari") {
       skzoo = new Skzoo(bbokari);
     }
-    else if (state1 === "puppym"){
+    else if (state1 === "puppym") {
       skzoo = new Skzoo(puppym);
     }
     else if (state1 === "foxiny"){
       skzoo = new Skzoo(foxiny);
-    }
+    } 
 
     skzoo.grid = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
       
@@ -991,10 +999,10 @@ function setupImage() {
       fill("black");
       textSize(skzoo.cellSize/1.75);
       textAlign(LEFT);
-      text("Please play full screen on a laptop or desktop for best experience.", change4, h);
-      text("Press the number on your keyboard that matches with the number you wish to colour.", change4, h+diameter/8);
-      text("Left click to colour.", change4, h+diameter/4);
-      text("Press mouse wheel to fill areas.", change4, h+diameter*3/8);
+      text("Please play full screen on a laptop or desktop for best experience.", skzoo.cellSize*skzoo.GRID_SIZE + skzoo.GRID_SIZE, h);
+      text("Press the number on your keyboard that matches with the number you wish to colour.", skzoo.cellSize*skzoo.GRID_SIZE + skzoo.GRID_SIZE, h+diameter/4);
+      text("Left click to colour.", skzoo.cellSize*skzoo.GRID_SIZE + skzoo.GRID_SIZE, h+diameter/2);
+      text("Press mouse wheel to fill areas.", skzoo.cellSize*skzoo.GRID_SIZE + skzoo.GRID_SIZE, h+diameter*3/4);
     }
     else {
       skzoo = skzoo.generateEmptyGrid(skzoo.GRID_SIZE, skzoo.GRID_SIZE);
@@ -1005,7 +1013,7 @@ function setupImage() {
 
 //start screen
 function startScreen() {
-  if (state === "start"){
+  if (state === "start") {
     background("white");
 
     // variables
@@ -1069,7 +1077,7 @@ function startScreen() {
 //end screen
 function endScreen() {
   background("black");
-  if (state === "cat"){
+  if (state === "cat") {
     translate(windowWidth/4, 0);
     catImage.displayGrid();
     fill("white");
@@ -1079,7 +1087,7 @@ function endScreen() {
     text("Relead the page to continue colouring", -width/4, h/4 + diameter/4);
     text("or take a picture of your work.", -width/4, h/4 + diameter/2);
   }
-  if (state === "skzoo"){
+  if (state === "skzoo") {
     translate(windowWidth/4, 0);
     skzoo.displayGrid();
     fill("white");
@@ -1232,9 +1240,10 @@ function buttonPushed() {
 //check done
 function doneColoring() {
   let done = false;
-  if (state === "cat"){
-    for (let y = 0; y < catImage.GRID_SIZE; y++){
-      for (let x = 0; x < catImage.GRID_SIZE; x++){
+  //check if done for cat
+  if (state === "cat") {
+    for (let y = 0; y < catImage.GRID_SIZE; y++) {
+      for (let x = 0; x < catImage.GRID_SIZE; x++) {
         if (catImage.blockNumber[y][x] >= 10) {
           done = true;
         }
@@ -1243,13 +1252,14 @@ function doneColoring() {
         }
       }
     }
-    if (done === true){
+    if (done === true) {
       end = true;
     }
   }
+  //check if done for others
   if (state === "skzoo"){
-    for (let y = 0; y < skzoo.GRID_SIZE; y++){
-      for (let x = 0; x < skzoo.GRID_SIZE; x++){
+    for (let y = 0; y < skzoo.GRID_SIZE; y++) {
+      for (let x = 0; x < skzoo.GRID_SIZE; x++) {
         if (skzoo.blockNumber[y][x] >= 10) {
           done = true;
         }
@@ -1258,7 +1268,7 @@ function doneColoring() {
         }
       }
     }
-    if (done === true){
+    if (done === true) {
       end = true;
     }
   }
@@ -1288,9 +1298,17 @@ function menuButton() {
 
 //play music according to state
 function music() {
+  musicArray.push(startMusic);
+  musicArray.pusch(catMusic);
+  musicArray.pusch(skzoo1Music);
+  musicArray.pusch(skzoo2Music);
+  musicArray.pusch(skzoo3Music);
+  musicArray.pusch(skzoo4Music);
+
   //music for start
   if (state === "start" && !startMusic.isPlaying()) {
     //stop music
+    for (let song )
     catMusic.stop();
     skzoo1Music.stop();
     skzoo2Music.stop();
