@@ -52,6 +52,7 @@ let catMusic;
 let skzoo1Music;
 let skzoo2Music;
 let skzoo3Music;
+let skzoo4Music;
 
 //create parent class using code from grid array game
 class Gridcat {
@@ -820,6 +821,7 @@ function preload() {
   skzoo1Music = loadSound("music/You (=I).mp3");
   skzoo2Music = loadSound("music/cute piano music.mp3");
   skzoo3Music = loadSound("music/lemon cake.mp3");
+  skzoo4Music = loadSound("music/Want So Bad.mp3");
 }
 
 function setup() {
@@ -829,17 +831,14 @@ function setup() {
 function draw() {
   if (state === "start"){
     startScreen();
-    musicChoices();
   }
   if (state === "cat"){
     catImage.displayGrid();
     menuButton();
-    musicChoices();
   }
   if (state === "skzoo"){
     skzoo.displayGrid();
     menuButton();
-    musicChoices();
   }
   // if (state === "userimage"){
   //   menuButton();
@@ -1287,14 +1286,6 @@ function menuButton() {
   text("Menu", width-width*1/20, h/2);
 }
 
-function musicChoices() {
-  fill(220);
-  rect(width-width*1/20 - diameter*2, h/2-diameter/4, diameter, diameter/2);
-  fill("black");
-  textSize(diameter/6);
-  text("Music Menu", width-width*1/20 - diameter*1.5, h/2);
-}
-
 //play music according to state
 function music() {
   //music for start
@@ -1304,6 +1295,7 @@ function music() {
     skzoo1Music.stop();
     skzoo2Music.stop();
     skzoo3Music.stop();
+    skzoo4Music.stop();
 
     //play music
     startMusic.setVolume(0.75);
@@ -1316,6 +1308,7 @@ function music() {
     skzoo1Music.stop();
     skzoo2Music.stop();
     skzoo3Music.stop();
+    skzoo4Music.stop();
 
     //play music
     catMusic.setVolume(0.75);
@@ -1329,12 +1322,13 @@ function music() {
     catMusic.stop();
     skzoo1Music.stop();
     skzoo2Music.stop();
+    skzoo4Music.stop();
 
     //play music
     skzoo3Music.setVolume(0.75);
     skzoo3Music.loop();
   }
-  //music for 3 skzoos
+  //music for 2 skzoos
   if (state1 === "foxiny" && !skzoo2Music.isPlaying() ||
       state1 === "dwaekki" && !skzoo2Music.isPlaying()) {
     //stop music
@@ -1342,24 +1336,38 @@ function music() {
     catMusic.stop();
     skzoo1Music.stop();
     skzoo3Music.stop();
+    skzoo4Music.stop();
 
     //play music
     skzoo2Music.setVolume(0.75);
     skzoo2Music.loop();
   }
-  //music for 4 skzoos
-  if (state1 === "quokka" && !skzoo1Music.isPlaying() ||
-      state1 === "bbokari" && !skzoo1Music.isPlaying() ||
-      state1 === "puppym" && !skzoo1Music.isPlaying() ||
-      state1 === "leebit" && !skzoo1Music.isPlaying()){
+  //music for 2 skzoos
+  if (state1 === "bbokari" && !skzoo1Music.isPlaying() ||
+      state1 === "puppym" && !skzoo1Music.isPlaying()){
     //stop music
     startMusic.stop();
     catMusic.stop();
     skzoo2Music.stop();
     skzoo3Music.stop();
+    skzoo4Music.stop();
 
     //stop music
     skzoo1Music.setVolume(0.75);
     skzoo1Music.loop();
+  }
+  //music for 2 skzoos
+  if (state1 === "leebit" && !skzoo4Music.isPlaying() ||
+      state1 === "quokka" && !skzoo4Music.isPlaying()) {
+    //stop music
+    startMusic.stop();
+    catMusic.stop();
+    skzoo1Music.stop();
+    skzoo2Music.stop();
+    skzoo3Music.stop();
+
+    //play music
+    skzoo4Music.setVolume(0.75);
+    skzoo4Music.loop();
   }
 }
