@@ -1299,21 +1299,18 @@ function menuButton() {
 //play music according to state
 function music() {
   musicArray.push(startMusic);
-  musicArray.pusch(catMusic);
-  musicArray.pusch(skzoo1Music);
-  musicArray.pusch(skzoo2Music);
-  musicArray.pusch(skzoo3Music);
-  musicArray.pusch(skzoo4Music);
+  musicArray.push(catMusic);
+  musicArray.push(skzoo1Music);
+  musicArray.push(skzoo2Music);
+  musicArray.push(skzoo3Music);
+  musicArray.push(skzoo4Music);
 
   //music for start
   if (state === "start" && !startMusic.isPlaying()) {
     //stop music
-    for (let song )
-    catMusic.stop();
-    skzoo1Music.stop();
-    skzoo2Music.stop();
-    skzoo3Music.stop();
-    skzoo4Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //play music
     startMusic.setVolume(0.75);
@@ -1322,11 +1319,9 @@ function music() {
   //music for colouring the cat
   if (state === "cat" && !catMusic.isPlaying()) {
     //stop music
-    startMusic.stop();
-    skzoo1Music.stop();
-    skzoo2Music.stop();
-    skzoo3Music.stop();
-    skzoo4Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //play music
     catMusic.setVolume(0.75);
@@ -1336,11 +1331,9 @@ function music() {
   if (state1 === "wolfchan" && !skzoo3Music.isPlaying() ||
       state1 === "jiniret" && !skzoo3Music.isPlaying()) {
     //stop music
-    startMusic.stop();
-    catMusic.stop();
-    skzoo1Music.stop();
-    skzoo2Music.stop();
-    skzoo4Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //play music
     skzoo3Music.setVolume(0.75);
@@ -1350,11 +1343,9 @@ function music() {
   if (state1 === "foxiny" && !skzoo2Music.isPlaying() ||
       state1 === "dwaekki" && !skzoo2Music.isPlaying()) {
     //stop music
-    startMusic.stop();
-    catMusic.stop();
-    skzoo1Music.stop();
-    skzoo3Music.stop();
-    skzoo4Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //play music
     skzoo2Music.setVolume(0.75);
@@ -1364,11 +1355,9 @@ function music() {
   if (state1 === "bbokari" && !skzoo1Music.isPlaying() ||
       state1 === "puppym" && !skzoo1Music.isPlaying()){
     //stop music
-    startMusic.stop();
-    catMusic.stop();
-    skzoo2Music.stop();
-    skzoo3Music.stop();
-    skzoo4Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //stop music
     skzoo1Music.setVolume(0.75);
@@ -1378,11 +1367,9 @@ function music() {
   if (state1 === "leebit" && !skzoo4Music.isPlaying() ||
       state1 === "quokka" && !skzoo4Music.isPlaying()) {
     //stop music
-    startMusic.stop();
-    catMusic.stop();
-    skzoo1Music.stop();
-    skzoo2Music.stop();
-    skzoo3Music.stop();
+    for (let song of musicArray){
+      song.stop();
+    }
 
     //play music
     skzoo4Music.setVolume(0.75);
